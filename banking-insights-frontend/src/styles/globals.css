@@ -1,26 +1,219 @@
 @import "tailwindcss";
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-background:#F2F2F2;
+  --color-primary: #026E51;
+  --color-secondary: #69C561;
+  --color-accent: #EE3642;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  overflow-x: hidden;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 
+
+p {
+  font-size: 16px;
+  color:black;
+  font-family: "Inter", sans-serif;
+}
+
+button, select {
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: disc;
+  font-size: 16px;
+  padding-left: 1.5rem; /* 24px */
+  margin-top: 0.5rem; /* 8px */
+  margin-bottom: 0.5rem; /* 8px */
+}
+
+input {
+  font-family: "Inter", sans-serif;
+  cursor: text;
+}
+
+/* calendar dropdown */
+.rdp {
+  --rdp-accent-color: var(--color-primary);
+  --rdp-accent-background-color: var(--color-primary);
+  --rdp-selected-border: none;
+  --rdp-outside-opacity: 0.5;
+}
+
+.rdp-chevron {
+  fill: var(--color-primary) !important;
+}
+
+.rdp-day_button:focus-visible {
+  outline: 2px solid var(--color-primary);
+}
+
+.rdp-selected .rdp-day_button,
+.rdp-day_button.rdp-selected {
+  background-color: var(--color-primary) !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.rdp-day_button:hover:not(:disabled) {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+textarea {
+  font-family: "Inter", sans-serif;
+  cursor: text;
+}
+
+select,
+button {
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 2.5rem; /* 40px */
+}
+
+h2 {
+  font-size: 1.5rem; /* 32px */
+}
+
+h3 {
+  font-size: 1.35rem; /* 28px */
+}
+
+h4 {
+  font-size: 1.3rem; /* 24px */
+}
+
+h5 {
+  font-size: 20px; /* 20px */
+}
+
+h6 {
+  font-size: 18px;
+}
+
+
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.75rem;
+  }
+
+  h2 {
+    font-size: 2.25rem; /* 40px */
+  }
+
+  h3 {
+    font-size: 2rem; /* 34px */
+  }
+
+  h4 {
+    font-size: 1.75rem; /* 30px */
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  h6 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  ul,
+  ol {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  h3 {
+    font-size: 2.25rem;
+  }
+
+  h4 {
+    font-size: 2rem;
+  }
+
+  h5 {
+    font-size: 22px;
+  }
+
+  h6 {
+    font-size: 18px;
+  }
+
+  .gradient-border {
+    padding: 0.6em 1.75em;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  h2 {
+    font-size: 2.75rem;
+  }
+
+  h3 {
+    font-size: 2.5rem;
+  }
+
+  h4 {
+    font-size: 2.25rem;
+  }
+
+  h5 {
+    font-size: 24px;
+  }
+
+  h6 {
+    font-size: 20px;
+  }
+}
+
+@layer utilities {
+  .btn {
+    @apply bg-primary font-semibold text-white px-3 py-2 lg:px-4 rounded-[10px] hover:bg-accent transition-all duration-300 text-[16px] lg:text-[18px] shadow-md;
+  }
+  .btn-accent {
+    @apply bg-accent font-semibold text-white px-3 py-2 lg:px-4 rounded-[10px] hover:bg-[#1282A2] transition-all duration-300 text-[16px] lg:text-[18px] shadow-md;
+  }
 }
