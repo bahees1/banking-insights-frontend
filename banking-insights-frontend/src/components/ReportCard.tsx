@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+
 type ReportCardProps = {
     reportName: string;
     dateCreated: string;
@@ -10,28 +13,28 @@ export default function ReportCard({
     fileCount,
 }: ReportCardProps) {
     return (
-        <div className="flex items-center justify-between bg-white px-6 py-4 rounded-sm">
-            <div className="flex items-center gap-12">
-                <p className="text-sm text-black">
+        <div className="min-w-[320px] flex flex-col gap-4 bg-white px-6 py-4 rounded-sm md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-12">
+                <p className="text-sm text-black font-medium">
                     {reportName}
                 </p>
 
-                <p className="text-sm text-black">
+                <p className="text-sm text-gray-700">
                     {dateCreated}
                 </p>
 
-                <p className="text-sm text-black">
+                <p className="text-sm text-gray-700">
                     {fileCount} files
                 </p>
             </div>
 
-            <div className="flex items-center gap-8">
-                <button className="text-sm text-black">
-                    Edit button
+            <div className="flex items-center gap-6">
+                <button className="text-md text-black hover:text-gray-600 transition-colors">
+                    <FontAwesomeIcon icon={faEdit} />
                 </button>
 
-                <button className="text-sm text-black">
-                    Delete Button
+                <button className="text-md text-black hover:text-red-600 transition-colors">
+                    <FontAwesomeIcon icon={faTrash} />
                 </button>
             </div>
         </div>

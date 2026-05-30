@@ -1,4 +1,7 @@
 import ReportCard from "@/components/ReportCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 
 const reports = [
     {
@@ -21,14 +24,16 @@ const reports = [
 export default function ReportsPage() {
     return (
         <main className="min-h-screen">
-            <section className="px-24 pt-32">
+            <section className="px-8 md:px-18 lg:md-24 pt-32">
                 <div className="flex items-center justify-between pb-8">
-                    <h1 className="text-lg font-medium text-black">
+                    <h4 className="text-sm font-medium text-black">
                         Reports
-                    </h1>
+                    </h4>
 
-                    <button className="bg-blue-500 text-white text-sm px-5 py-3 rounded-md">
+                    <button className="flex items-center gap-2 bg-blue-500 text-white text-sm px-4 py-3 rounded-lg">
                         Create
+                        <FontAwesomeIcon icon={faPlus} />
+                        
                     </button>
                 </div>
 
