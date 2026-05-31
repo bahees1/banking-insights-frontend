@@ -23,14 +23,14 @@ export default function ReportsPage() {
     const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
 
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen min-w-[320px]">
             <Navbar />
 
             <section className="px-6 pt-44 md:px-24 md:pt-32">
                 <div className="flex items-center justify-between pb-8">
-                    <h1 className="text-lg font-medium text-black">
+                    <h4 className="text-lg font-medium text-black">
                         Reports
-                    </h1>
+                    </h4>
 
                     <button
                         type="button"
