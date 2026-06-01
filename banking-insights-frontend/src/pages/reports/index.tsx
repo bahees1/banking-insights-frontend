@@ -8,7 +8,7 @@ import CreateReportModal from "@/components/CreateReportModal";
 
 const reports = [
     {
-        reportName: "March Spending Report",
+        reportName: "March Spending ReportReportReportReportReportReportReport",
         dateCreated: "Apr 29, 2026",
         fileCount: 3,
     },

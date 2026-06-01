@@ -13,9 +13,9 @@ export default function ReportCard({
     fileCount,
 }: ReportCardProps) {
     return (
-        <div className="min-w-[320px] flex flex-col gap-4 bg-white px-6 py-4 rounded-sm md:flex-row md:items-center md:justify-between">
+        <div className="min-w-[320px] flex flex-row justify-between gap-4 bg-white px-6 py-4 rounded-md md:flex-row md:items-center">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-12">
-                <p className="text-sm text-black font-medium">
+                <p className="text-sm text-black font-medium line-clamp-1">
                     {reportName}
                 </p>
 

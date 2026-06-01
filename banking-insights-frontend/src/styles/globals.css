@@ -181,12 +181,3 @@ h6 {
     font-size: 20px;
   }
 }
-
-@layer utilities {
-  .btn {
-    @apply bg-primary font-semibold text-white px-3 py-2 lg:px-4 rounded-[10px] hover:bg-accent transition-all duration-300 text-[16px] lg:text-[18px] shadow-md;
-  }
-  .btn-accent {
-    @apply bg-accent font-semibold text-white px-3 py-2 lg:px-4 rounded-[10px] hover:bg-[#1282A2] transition-all duration-300 text-[16px] lg:text-[18px] shadow-md;
-  }
-}
