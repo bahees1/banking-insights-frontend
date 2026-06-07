@@ -71,14 +71,14 @@ export default function CreateReportModal({
         <div className="min-w-[340px] fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-6 py-8">
             <div className="flex rounded-2xl w-full max-w-3xl flex-col gap-8 bg-white px-8 py-8 md:px-12">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-medium text-black">
+                    <h4 className="text-2xl font-medium text-black">
                         Create Report
-                    </h2>
+                    </h4>
 
                     <button
                         type="button"
                         onClick={onClose}
-                        className="text-sm text-gray-600 hover:text-black"
+                        className="rounded-lg px-3 py-2 font-semibold text-md text-gray-500 transition-colors hover:bg-gray-100 active:bg-gray-200"
                     >
                         Close
                     </button>
@@ -171,7 +171,7 @@ export default function CreateReportModal({
                     <button
                         type="button"
                         disabled={reportName.trim().length < 3 || selectedFiles.length === 0}
-                        className="bg-gray-200 px-6 py-4 text-sm text-black disabled:cursor-not-allowed disabled:opacity-50"
+                        className="bg-gray-200 px-6 py-4 rounded-md text-sm text-black disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         Generate Report
                     </button>

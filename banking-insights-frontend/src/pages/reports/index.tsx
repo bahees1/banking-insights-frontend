@@ -39,14 +39,14 @@ export default function ReportsPage() {
 
             <section className="px-6 pt-44 md:px-24 md:pt-32">
                 <div className="flex items-center justify-between pb-8">
-                    <h1 className="text-lg font-medium text-black">
+                    <h3 className="text-lg font-medium text-black">
                         Reports
-                    </h1>
+                    </h3>
 
                     <button
                         type="button"
                         onClick={() => setCreateModalIsOpen(true)}
-                        className="flex items-center gap-2 rounded-md bg-blue-500 px-5 py-3 text-sm text-white"
+                        className="flex items-center gap-2 rounded-md bg-blue-500 active:bg-blue-700 px-5 py-3 text-sm text-white"
                     >
                         <FontAwesomeIcon icon={faPlus} />
                         Create

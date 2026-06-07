@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 type ReportCardProps = {
     reportName: string;
@@ -13,11 +14,23 @@ export default function ReportCard({
     fileCount,
 }: ReportCardProps) {
     return (
-        <div className="min-w-[320px] flex flex-row justify-between gap-4 bg-white px-6 py-4 rounded-md md:flex-row md:items-center">
+        <div className="group min-w-[320px] flex flex-row justify-between gap-4 rounded-md bg-white px-6 py-4 md:flex-row md:items-center hover:shadow-md">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-12">
-                <p className="text-sm text-black font-medium line-clamp-1">
+                <Link
+                    href={`/reports/${reportName}`}
+                    className="
+                        line-clamp-1
+                        text-sm
+                        font-medium
+                        text-black
+                        transition-colors
+                        duration-150
+                        group-hover:text-yellow-500
+                        active:text-yellow-600
+                    "
+                >
                     {reportName}
-                </p>
+                </Link>
 
                 <p className="text-sm text-gray-700">
                     {dateCreated}
