@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { getReportSummary } from "@/pages/api/reports";
 import { ReportSummary } from "@/types/reportSummary";
+import FileSidebar from "@/components/FileSidebar";
 
 export default function ReportDashboardPage() {
     const router = useRouter();
@@ -37,7 +38,6 @@ export default function ReportDashboardPage() {
 
     return (
         <main className="min-h-screen min-w-[320px]">
-
             <section className="px-6 pt-44 md:px-24 md:pt-32">
                 {isLoading && (
                     <p className="text-sm text-gray-600">
@@ -54,8 +54,6 @@ export default function ReportDashboardPage() {
                 {!isLoading && !errorMessage && reportSummary && (
                     <div className="flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
-                            
-
                             <h5 className="text-2xl font-semibold text-black">
                                 {reportSummary.fileName}
                             </h5>
@@ -71,45 +69,19 @@ export default function ReportDashboardPage() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                            <SummaryCard
-                                label="Total Income"
-                                value={formatCurrency(reportSummary.totalIncome)}
-                            />
+                        <div className="flex flex-col gap-6 md:flex-row">
+                            <FileSidebar uploadedFiles={reportSummary.uploadedFiles} />
 
-                            <SummaryCard
-                                label="Total Expenses"
-                                value={formatCurrency(reportSummary.totalExpenses)}
-                            />
-
-                            <SummaryCard
-                                label="Net Cash Flow"
-                                value={formatCurrency(reportSummary.netCashFlow)}
-                            />
+                            <section className="min-h-[400px] flex-1 rounded-xl bg-white p-6 shadow-sm">
+                                <p className="text-sm text-gray-500">
+                                    Transaction table will go here.
+                                </p>
+                            </section>
                         </div>
                     </div>
                 )}
             </section>
         </main>
-    );
-}
-
-type SummaryCardProps = {
-    label: string;
-    value: string;
-};
-
-function SummaryCard({ label, value }: SummaryCardProps) {
-    return (
-        <div className="bg-white px-6 py-5">
-            <p className="text-sm text-gray-600">
-                {label}
-            </p>
-
-            <p className="pt-2 text-xl font-semibold text-black">
-                {value}
-            </p>
-        </div>
     );
 }
 
@@ -119,11 +91,4 @@ function formatReportDate(dateValue: string): string {
         month: "short",
         day: "numeric",
     });
-}
-
-function formatCurrency(value: number): string {
-    return new Intl.NumberFormat("en-CA", {
-        style: "currency",
-        currency: "CAD",
-    }).format(value);
 }

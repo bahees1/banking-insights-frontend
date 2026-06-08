@@ -50,7 +50,7 @@ export default function ReportsPage() {
                     <button
                         type="button"
                         onClick={() => setCreateModalIsOpen(true)}
-                        className="flex items-center gap-2 rounded-md bg-blue-500 active:bg-blue-700 px-5 py-3 text-sm text-white"
+                        className="flex items-center gap-2 rounded-md bg-blue-400 active:bg-blue-600 px-5 py-3 text-sm text-white"
                     >
                         <FontAwesomeIcon icon={faPlus} />
                         Create
