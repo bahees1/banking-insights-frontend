@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 import Navbar from "@/components/Navbar";
 import ReportCard from "@/components/ReportCard";
 import CreateReportModal from "@/components/CreateReportModal";
 import { getReports } from "@/lib/api";
 import { ReportListItem } from "@/types/report";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function ReportsPage() {
     const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
@@ -14,6 +15,12 @@ export default function ReportsPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
+    const router = useRouter();
+    function handleReportCardClick(reportId: string) {
+        router.push(`/reports/${reportId}`);
+    }
+
+    // load all reports for the user 
     useEffect(() => {
         async function loadReports() {
             try {
@@ -35,8 +42,6 @@ export default function ReportsPage() {
 
     return (
         <main className="min-h-screen">
-            <Navbar />
-
             <section className="px-6 pt-44 md:px-24 md:pt-32">
                 <div className="flex items-center justify-between pb-8">
                     <h3 className="text-lg font-medium text-black">
@@ -78,9 +83,11 @@ export default function ReportsPage() {
                         {reports.map((report) => (
                             <ReportCard
                                 key={report.reportId}
+                                reportId={report.reportId}
                                 reportName={report.fileName}
                                 dateCreated={formatReportDate(report.createdAt)}
                                 fileCount={report.uploadedFileCount}
+                                onClick={handleReportCardClick}
                             />
                         ))}
                     </div>
