@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 
-import Navbar from "@/components/Navbar";
 import ReportCard from "@/components/ReportCard";
 import CreateReportModal from "@/components/CreateReportModal";
-import { getReports } from "@/lib/api";
+import { getReports } from "@/pages/api/reports";
 import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
