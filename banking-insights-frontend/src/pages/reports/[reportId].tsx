@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { getReportSummary } from "@/pages/api/reports";
 import { ReportSummary } from "@/types/reportSummary";
 import FileSidebar from "@/components/FileSidebar";
+import SingleStat from "@/components/SingleStat";
 
 export default function ReportDashboardPage() {
     const router = useRouter();
@@ -72,11 +73,21 @@ export default function ReportDashboardPage() {
                         <div className="flex flex-col gap-6 md:flex-row">
                             <FileSidebar uploadedFiles={reportSummary.uploadedFiles} />
 
-                            <section className="min-h-[400px] flex-1 rounded-xl bg-white p-6 shadow-sm">
-                                <p className="text-sm text-gray-500">
-                                    Transaction table will go here.
-                                </p>
-                            </section>
+                            <div className="w-full flex flex-col gap-6 ">
+                                <div className="flex flex-col md:flex-row gap-6">
+                                    <SingleStat title="Total Income" amount={reportSummary.totalIncome} />
+                                    <SingleStat title="Total Expenses" amount={reportSummary.totalExpenses} />
+                                    <SingleStat title="Net Cash Flow" amount={reportSummary.netCashFlow} />
+                                </div>
+                                <section className="min-h-[400px] flex-1 rounded-xl bg-white p-6 shadow-sm">
+                                    <p className="text-sm text-gray-500">
+                                        Transaction table will go here.
+                                    </p>
+                                </section>
+
+
+                            </div>
+                            
                         </div>
                     </div>
                 )}
