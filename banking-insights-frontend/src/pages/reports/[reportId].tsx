@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { getReportSummary } from "@/pages/api/reports";
+import { getReportSummary, getTransactionsForReport } from "@/pages/api/reports";
 import { ReportSummary } from "@/types/reportSummary";
+import { Transaction } from "@/types/transaction";
 import FileSidebar from "@/components/FileSidebar";
 import SingleStat from "@/components/SingleStat";
 
@@ -13,28 +14,33 @@ export default function ReportDashboardPage() {
     const [reportSummary, setReportSummary] = useState<ReportSummary | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
 
     useEffect(() => {
         if (!router.isReady || typeof reportId !== "string") {
             return;
         }
 
-        async function loadReportSummary() {
+        async function loadReportData() {
             try {
                 setIsLoading(true);
                 setErrorMessage("");
 
-                const summary = await getReportSummary(reportId);
+                const [summary, transactionsFromApi] = await Promise.all([
+                    getReportSummary(reportId),
+                    getTransactionsForReport(reportId),
+                ]);
 
                 setReportSummary(summary);
+                setTransactions(transactionsFromApi);
             } catch (error) {
-                setErrorMessage("Unable to load report summary.");
+                setErrorMessage("Unable to load report data.");
             } finally {
                 setIsLoading(false);
             }
         }
 
-        loadReportSummary();
+        loadReportData();
     }, [router.isReady, reportId]);
 
     return (
@@ -66,6 +72,9 @@ export default function ReportDashboardPage() {
                                 •
                                 <div>
                                     {reportSummary.uploadedFiles.length} Files
+                                </div>
+                                <div>
+                                    {transactions.length} Transactions Loaded
                                 </div>
                             </div>
                         </div>
