@@ -15,6 +15,14 @@ export default function ReportDashboardPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [selectedFileName, setSelectedFileName] = useState<string>("ALL");
+
+    const filteredTransactions =
+        selectedFileName === "ALL"
+            ? transactions
+            : transactions.filter((transaction) => {
+                return transaction.sourceFileName === selectedFileName;
+            });
 
     useEffect(() => {
         if (!router.isReady || typeof reportId !== "string") {
@@ -74,16 +82,20 @@ export default function ReportDashboardPage() {
                                     {reportSummary.uploadedFiles.length} Files
                                 </div>
                                 <div>
-                                    {transactions.length} Transactions Loaded
+                                    {filteredTransactions.length} Transactions Loaded
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-6 md:flex-row">
-                            <FileSidebar uploadedFiles={reportSummary.uploadedFiles} />
+                            <FileSidebar
+                                uploadedFiles={reportSummary.uploadedFiles}
+                                selectedFileName={selectedFileName}
+                                onSelectFile={setSelectedFileName}
+                            />
 
                             <div className="w-full flex flex-col gap-6 ">
-                                <div className="flex flex-col md:flex-row gap-6">
+                                <div className="flex flex-col gap-6">
                                     <SingleStat title="Total Income" amount={reportSummary.totalIncome} />
                                     <SingleStat title="Total Expenses" amount={reportSummary.totalExpenses} />
                                     <SingleStat title="Net Cash Flow" amount={reportSummary.netCashFlow} />

@@ -1,53 +1,53 @@
-import { useState } from "react";
 import { UploadedFile } from "@/types/reportSummary";
 
 type FileSidebarProps = {
     uploadedFiles: UploadedFile[];
+    selectedFileName: string;
+    onSelectFile: (fileName: string) => void;
 };
 
 export default function FileSidebar({
     uploadedFiles,
+    selectedFileName,
+    onSelectFile,
 }: FileSidebarProps) {
-
-    const [selectedFile, setSelectedFile] = useState<string>("all");
-
     const fileOptions = [
         {
-            id: "all",
-            label: "All",
+            id: "ALL",
+            label: "All Files",
         },
         ...uploadedFiles.map((file) => ({
-            id: file.uploadedFileId,
+            id: file.originalFileName,
             label: file.originalFileName,
         })),
     ];
 
     return (
-        <aside className="w-full rounded-xl bg-white px-4 py-5 shadow-sm md:w-[220px] md:min-w-[220px]">
-
+        <aside className="w-full rounded-xl bg-white px-4 py-5 shadow-sm md:w-[260px] md:min-w-[260px]">
             <div className="flex flex-col gap-1 pb-4">
-                <h6 className="text-sm font-medium text-black">
+                <h5 className="text-sm font-medium text-black">
                     File List
-                </h6>
+                </h5>
             </div>
 
             <div className="flex flex-col gap-2">
                 {fileOptions.map((file) => (
                     <button
                         key={file.id}
-                        onClick={() => setSelectedFile(file.id)}
+                        type="button"
+                        onClick={() => onSelectFile(file.id)}
                         className={`
                             w-full
+                            truncate
                             rounded-md
                             px-3
                             py-2
                             text-left
                             text-sm
                             transition-colors
-                            truncate
                             ${
-                                selectedFile === file.id
-                                    ? "bg-blue-400 text-white"
+                                selectedFileName === file.id
+                                    ? "bg-gray-700 text-white"
                                     : "text-black hover:bg-gray-100"
                             }
                         `}
@@ -56,7 +56,6 @@ export default function FileSidebar({
                     </button>
                 ))}
             </div>
-
         </aside>
     );
 }
