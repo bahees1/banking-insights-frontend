@@ -6,6 +6,8 @@ import { ReportSummary } from "@/types/reportSummary";
 import { Transaction } from "@/types/transaction";
 import FileSidebar from "@/components/FileSidebar";
 import SingleStat from "@/components/SingleStat";
+import { calculateTransactionStats } from "@/utils/transactionStats";
+import TransactionTable from "@/components/TransactionTable";
 
 export default function ReportDashboardPage() {
     const router = useRouter();
@@ -23,6 +25,8 @@ export default function ReportDashboardPage() {
             : transactions.filter((transaction) => {
                 return transaction.sourceFileName === selectedFileName;
             });
+
+    const filteredStats = calculateTransactionStats(filteredTransactions);
 
     useEffect(() => {
         if (!router.isReady || typeof reportId !== "string") {
@@ -81,9 +85,6 @@ export default function ReportDashboardPage() {
                                 <div>
                                     {reportSummary.uploadedFiles.length} Files
                                 </div>
-                                <div>
-                                    {filteredTransactions.length} Transactions Loaded
-                                </div>
                             </div>
                         </div>
 
@@ -96,15 +97,13 @@ export default function ReportDashboardPage() {
 
                             <div className="w-full flex flex-col gap-6 ">
                                 <div className="flex flex-col gap-6">
-                                    <SingleStat title="Total Income" amount={reportSummary.totalIncome} />
-                                    <SingleStat title="Total Expenses" amount={reportSummary.totalExpenses} />
-                                    <SingleStat title="Net Cash Flow" amount={reportSummary.netCashFlow} />
+                                    <SingleStat title="Income" amount={filteredStats.totalIncome} />
+                                    <SingleStat title="Expenses" amount={filteredStats.totalExpenses} />
+                                    <SingleStat title="Cash Flow" amount={filteredStats.netCashFlow} />
                                 </div>
-                                <section className="min-h-[400px] flex-1 rounded-xl bg-white p-6 shadow-sm">
-                                    <p className="text-sm text-gray-500">
-                                        Transaction table will go here.
-                                    </p>
-                                </section>
+                                
+                                <TransactionTable transactions={filteredTransactions} />
+                                
 
 
                             </div>

@@ -10,7 +10,7 @@ export default function Navbar() {
             <nav className="fixed top-4 left-1/2 z-50 hidden w-[90%] min-w-[400px] max-w-[1400px] -translate-x-1/2 rounded-2xl bg-white px-6 py-2 shadow-md min-[500px]:block">
                 <div className="flex min-w-[400px] flex-nowrap items-center justify-between gap-8">
                     <div className="flex shrink-0 items-center gap-8">
-                        <div className="whitespace-nowrap text-sm font-medium flex flex-row items-center gap-2 text-yellow-600">
+                        <div className="whitespace-nowrap text-sm font-medium flex flex-row items-center gap-2 text-blue-600">
                             <FontAwesomeIcon icon={faBolt} />
                             Insightly
                         </div>

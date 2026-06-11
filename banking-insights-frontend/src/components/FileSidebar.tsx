@@ -25,9 +25,9 @@ export default function FileSidebar({
     return (
         <aside className="w-full rounded-xl bg-white px-4 py-5 shadow-sm md:w-[260px] md:min-w-[260px]">
             <div className="flex flex-col gap-1 pb-4">
-                <h5 className="text-sm font-medium text-black">
+                <h6 className="!text-md font-medium text-gray-700">
                     File List
-                </h5>
+                </h6>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -47,7 +47,7 @@ export default function FileSidebar({
                             transition-colors
                             ${
                                 selectedFileName === file.id
-                                    ? "bg-gray-700 text-white"
+                                    ? "bg-blue-400 text-white"
                                     : "text-black hover:bg-gray-100"
                             }
                         `}
