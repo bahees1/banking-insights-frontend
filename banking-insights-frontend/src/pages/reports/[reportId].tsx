@@ -8,6 +8,8 @@ import FileSidebar from "@/components/FileSidebar";
 import SingleStat from "@/components/SingleStat";
 import { calculateTransactionStats } from "@/utils/transactionStats";
 import TransactionTable from "@/components/TransactionTable";
+import CategoryBreakdownWidget from "@/components/CategoryBreakdownWidget";
+import { calculateCategoryBreakdown } from "@/utils/categoryBreakdown";
 
 export default function ReportDashboardPage() {
     const router = useRouter();
@@ -27,6 +29,8 @@ export default function ReportDashboardPage() {
             });
 
     const filteredStats = calculateTransactionStats(filteredTransactions);
+
+    const categoryBreakdown = calculateCategoryBreakdown(filteredTransactions);
 
     useEffect(() => {
         if (!router.isReady || typeof reportId !== "string") {
@@ -96,11 +100,15 @@ export default function ReportDashboardPage() {
                             />
 
                             <div className="w-full flex flex-col gap-6 ">
-                                <div className="flex flex-col gap-6">
-                                    <SingleStat title="Income" amount={filteredStats.totalIncome} />
-                                    <SingleStat title="Expenses" amount={filteredStats.totalExpenses} />
-                                    <SingleStat title="Cash Flow" amount={filteredStats.netCashFlow} />
+                                <div className="flex w-full flex-col gap-6 md:flex-row">
+                                    <div className="flex flex-col gap-6">
+                                        <SingleStat title="Income" amount={filteredStats.totalIncome} />
+                                        <SingleStat title="Expenses" amount={filteredStats.totalExpenses} />
+                                        <SingleStat title="Cash Flow" amount={filteredStats.netCashFlow} />
+                                    </div>
+                                    <CategoryBreakdownWidget data={categoryBreakdown} />
                                 </div>
+                                
                                 
                                 <TransactionTable transactions={filteredTransactions} />
                                 
