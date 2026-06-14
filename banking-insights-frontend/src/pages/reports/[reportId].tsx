@@ -10,6 +10,8 @@ import { calculateTransactionStats } from "@/utils/transactionStats";
 import TransactionTable from "@/components/TransactionTable";
 import CategoryBreakdownWidget from "@/components/CategoryBreakdownWidget";
 import { calculateCategoryBreakdown } from "@/utils/categoryBreakdown";
+import TabSwitcher, { DashboardTab } from "@/components/TabSwitcher";
+import { Tab } from "@headlessui/react";
 
 export default function ReportDashboardPage() {
     const router = useRouter();
@@ -20,6 +22,8 @@ export default function ReportDashboardPage() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [selectedFileName, setSelectedFileName] = useState<string>("ALL");
+    
+    const [activeTab, setActiveTab] = useState<DashboardTab>("transactions");
 
     const filteredTransactions =
         selectedFileName === "ALL"
@@ -76,20 +80,25 @@ export default function ReportDashboardPage() {
 
                 {!isLoading && !errorMessage && reportSummary && (
                     <div className="flex flex-col gap-6">
-                        <div className="flex flex-col gap-2">
-                            <h5 className="text-2xl font-semibold text-black">
-                                {reportSummary.fileName}
-                            </h5>
+                        <div className="flex flex-col md:flex-row gap-2 justify-between">
+                            <div className="flex flex-col gap-2">
+                                <h5 className="text-2xl font-semibold text-black">
+                                    {reportSummary.fileName}
+                                </h5>
 
-                            <div className="flex flex-row gap-2 text-md text-gray-700">
-                                <div>
-                                    {formatReportDate(reportSummary.createdAt)}
+                                <div className="flex flex-row gap-2 text-md text-gray-700">
+                                    <div>
+                                        {formatReportDate(reportSummary.createdAt)}
+                                    </div>
+                                    •
+                                    <div>
+                                        {reportSummary.uploadedFiles.length} Files
+                                    </div>
                                 </div>
-                                •
-                                <div>
-                                    {reportSummary.uploadedFiles.length} Files
-                                </div>
+
                             </div>
+                            <TabSwitcher activeTab={activeTab} onTabChange={setActiveTab} />
+                            
                         </div>
 
                         <div className="flex flex-col gap-6 md:flex-row">
