@@ -8,7 +8,7 @@ export default function SingleStat({
     amount,
 }: StatWidgetProps) {
     return (
-        <div className="flex min-h-[140px] w-full min-w-0 flex-col justify-between rounded-2xl bg-white px-6 py-5 shadow-sm">
+        <div className="flex min-h-[140px] w-full min-w-[240px] flex-col justify-between rounded-2xl bg-white px-6 py-5 shadow-sm">
             <h6 className="!text-md font-medium text-gray-700">
                 {title}
             </h6>

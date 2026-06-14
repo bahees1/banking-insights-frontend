@@ -44,8 +44,8 @@ export default function CategoryBreakdownWidget({
                     </p>
                 </div>
             ) : (
-                <div className="flex flex-col gap-4 md:flex-row md:items-center">
-                    <div className="h-[220px] w-full md:w-1/2">
+                <div className="flex flex-col gap-4">
+                    <div className="h-[220px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
@@ -73,7 +73,7 @@ export default function CategoryBreakdownWidget({
                         </ResponsiveContainer>
                     </div>
 
-                    <div className="flex w-full flex-col gap-3 md:w-1/2">
+                    <div className="flex w-full flex-col gap-3">
                         {data.map((item, index) => (
                             <div
                                 key={item.category}
