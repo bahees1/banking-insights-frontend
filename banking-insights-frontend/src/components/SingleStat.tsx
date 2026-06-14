@@ -3,6 +3,8 @@ type StatWidgetProps = {
     amount: number;
 };
 
+import AnimatedCurrency from "@/components/AnimatedCurrency";
+
 export default function SingleStat({
     title,
     amount,
@@ -13,17 +15,10 @@ export default function SingleStat({
                 {title}
             </h6>
 
-            <h6 className="min-w-0 break-all text-end !text-2xl font-semibold text-black">
-                {formatCurrency(amount)}
-            </h6>
+            <div className="min-w-0 break-all text-3xl text-end font-semibold text-black">
+                <AnimatedCurrency value={amount} />
+            </div>
         </div>
     );
 }
 
-function formatCurrency(value: number): string {
-    return new Intl.NumberFormat("en-CA", {
-        style: "currency",
-        currency: "CAD",
-        maximumFractionDigits: 0,
-    }).format(value);
-}

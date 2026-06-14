@@ -26,7 +26,7 @@ export default function CategoryBreakdownWidget({
     data,
 }: CategoryBreakdownWidgetProps) {
     return (
-        <div className="flex min-h-[340px] w-full flex-col gap-4 rounded-2xl bg-white px-6 py-5 shadow-sm">
+        <div className="flex min-h-[340px] min-w-0 w-full flex-col gap-4 rounded-2xl bg-white px-6 py-5 shadow-sm">
             <div className="flex flex-col gap-1">
                 <h6 className="!text-md font-medium text-gray-700">
                     Spending Breakdown
@@ -45,7 +45,7 @@ export default function CategoryBreakdownWidget({
                 </div>
             ) : (
                 <div className="flex flex-col gap-4">
-                    <div className="h-[220px] w-full">
+                    <div className="h-[220px] min-h-[220px] min-w-0 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie

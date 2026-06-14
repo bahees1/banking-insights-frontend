@@ -5,13 +5,10 @@ import { getReportSummary, getTransactionsForReport } from "@/pages/api/reports"
 import { ReportSummary } from "@/types/reportSummary";
 import { Transaction } from "@/types/transaction";
 import FileSidebar from "@/components/FileSidebar";
-import SingleStat from "@/components/SingleStat";
-import { calculateTransactionStats } from "@/utils/transactionStats";
 import TransactionTable from "@/components/TransactionTable";
-import CategoryBreakdownWidget from "@/components/CategoryBreakdownWidget";
-import { calculateCategoryBreakdown } from "@/utils/categoryBreakdown";
 import TabSwitcher, { DashboardTab } from "@/components/TabSwitcher";
-import { Tab } from "@headlessui/react";
+import TransactionDashboard from "@/components/TransactionDashboard";
+
 
 export default function ReportDashboardPage() {
     const router = useRouter();
@@ -31,10 +28,6 @@ export default function ReportDashboardPage() {
             : transactions.filter((transaction) => {
                 return transaction.sourceFileName === selectedFileName;
             });
-
-    const filteredStats = calculateTransactionStats(filteredTransactions);
-
-    const categoryBreakdown = calculateCategoryBreakdown(filteredTransactions);
 
     useEffect(() => {
         if (!router.isReady || typeof reportId !== "string") {
@@ -65,7 +58,7 @@ export default function ReportDashboardPage() {
 
     return (
         <main className="min-h-screen min-w-[320px]">
-            <section className="px-6 pt-44 md:px-24 md:pt-32">
+            <section className="px-6 pt-44 md:px-34 md:pt-32">
                 {isLoading && (
                     <p className="text-sm text-gray-600">
                         Loading report...
@@ -108,21 +101,26 @@ export default function ReportDashboardPage() {
                                 onSelectFile={setSelectedFileName}
                             />
 
-                            <div className="w-full flex flex-col gap-6 ">
-                                <div className="flex w-full flex-col gap-6 md:flex-row">
+                            <div className="w-full min-w-0 flex flex-col gap-6 ">
+                                {activeTab === "transactions" && (
                                     <div className="flex flex-col gap-6">
-                                        <SingleStat title="Income" amount={filteredStats.totalIncome} />
-                                        <SingleStat title="Expenses" amount={filteredStats.totalExpenses} />
-                                        <SingleStat title="Cash Flow" amount={filteredStats.netCashFlow} />
+                                        <TransactionDashboard transactions={filteredTransactions} />
+                                        <TransactionTable transactions={filteredTransactions} />
                                     </div>
-                                    <CategoryBreakdownWidget data={categoryBreakdown} />
-                                </div>
-                                
-                                
-                                <TransactionTable transactions={filteredTransactions} />
-                                
+                                )}
 
+                                {activeTab === "insights" && (
+                                    <section className="rounded-2xl bg-white px-6 py-8 shadow-sm">
+                                        <h2 className="text-xl font-semibold text-black">
+                                            Insights Dashboard
+                                        </h2>
 
+                                        <p className="pt-2 text-sm text-gray-600">
+                                            Insight cards will go here.
+                                        </p>
+                                    </section>
+                                )}
+                            
                             </div>
                             
                         </div>
