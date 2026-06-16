@@ -21,12 +21,16 @@ export default function DeleteReportModal({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-6 py-8">
             <div className="flex w-full max-w-md flex-col gap-6 rounded-2xl bg-white px-6 py-6 shadow-sm">
                 <div className="flex flex-col gap-2">
-                    <h4 className="text-xl font-semibold text-black">
-                        Confirm report delete...
-                    </h4>
+                    <h5 className="text-xl font-semibold text-black">
+                        Delete Report
+                    </h5>
 
-                    <p className="text-sm text-gray-600">
-                        Are you sure you want to delete {reportName}? This action cannot be undone.
+                    <p className="!text-md text-gray-600">
+                        Are you sure you want to delete{" "}
+                        <span className="font-bold text-blue-500">
+                            {reportName}
+                        </span>
+                        ? This action cannot be undone.
                     </p>
                 </div>
 

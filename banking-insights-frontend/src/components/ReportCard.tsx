@@ -42,17 +42,6 @@ export default function ReportCard({
                     type="button"
                     onClick={(event) => {
                         event.stopPropagation();
-                        console.log("Edit clicked for report:", reportId);
-                    }}
-                    className="text-md text-black transition-colors hover:text-gray-600"
-                >
-                    <FontAwesomeIcon icon={faEdit} />
-                </button>
-
-                <button
-                    type="button"
-                    onClick={(event) => {
-                        event.stopPropagation();
                         onDeleteClick(reportId, reportName);
                     }}
                     className="text-md text-black transition-colors hover:text-red-600"

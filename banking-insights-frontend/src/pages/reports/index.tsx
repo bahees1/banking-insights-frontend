@@ -7,6 +7,8 @@ import CreateReportModal from "@/components/CreateReportModal";
 import { getReports } from "@/pages/api/reports";
 import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import DeleteReportModal from "@/components/DeleteReportModal";
+import { deleteReport } from "../api/reports";
 
 export default function ReportsPage() {
     const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
@@ -14,6 +16,7 @@ export default function ReportsPage() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const [selectedReportToDelete, setSelectedReportToDelete] = useState<{reportId: string;reportName: string;} | null>(null);
 
     const router = useRouter();
@@ -50,14 +53,37 @@ export default function ReportsPage() {
         setDeleteModalIsOpen(true);
     }
 
+    async function handleConfirmDeleteReport() {
+        if (!selectedReportToDelete) {
+            return;
+        }
+
+        try {
+            setIsDeleting(true);
+            setErrorMessage("");
+
+            await deleteReport(selectedReportToDelete.reportId);
+
+            await loadReports();
+
+            setDeleteModalIsOpen(false);
+            setSelectedReportToDelete(null);
+        } catch (error) {
+            setErrorMessage("Unable to delete report. Please try again.");
+        } finally {
+            setIsDeleting(false);
+        }
+    }
+
 
     return (
         <main className="min-h-screen">
             <section className="px-6 pt-44 md:px-24 md:pt-32">
                 <div className="flex items-center justify-between pb-8">
                     <h3 className="text-lg font-medium text-black">
-                        Reports
+                        My Reports
                     </h3>
+                    
 
                     <button
                         type="button"
@@ -110,6 +136,17 @@ export default function ReportsPage() {
                 isOpen={createModalIsOpen}
                 onClose={() => setCreateModalIsOpen(false)}
                 onReportCreated={loadReports}
+            />
+
+            <DeleteReportModal
+                isOpen={deleteModalIsOpen}
+                reportName={selectedReportToDelete?.reportName ?? "this report"}
+                isDeleting={isDeleting}
+                onClose={() => {
+                    setDeleteModalIsOpen(false);
+                    setSelectedReportToDelete(null);
+                }}
+                onConfirm={handleConfirmDeleteReport}
             />
         </main>
     );
