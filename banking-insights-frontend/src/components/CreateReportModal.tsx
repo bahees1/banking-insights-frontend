@@ -1,9 +1,12 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { uploadReport } from "../pages/api/reports";
 
 type CreateReportModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    onReportCreated: () => void;
+    token?: string;
 };
 
 // file upload constraints for helper text on form
@@ -13,10 +16,34 @@ const MAX_FILE_SIZE_BYTES = 3 * 1024 * 1024;
 export default function CreateReportModal({
     isOpen,
     onClose,
+    onReportCreated,
+    token,
 }: CreateReportModalProps) {
     const [reportName, setReportName] = useState<string>("");
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [isUploading, setIsUploading] = useState<boolean>(false);
+
+    async function handleCreateReport() {
+        try {
+            setIsUploading(true);
+            setErrorMessage("");
+
+            await uploadReport(reportName.trim(), selectedFiles, {
+                token,
+            });
+
+            setReportName("");
+            setSelectedFiles([]);
+
+            onReportCreated();
+            onClose();
+        } catch (error) {
+            setErrorMessage("Unable to create report. Please try again.");
+        } finally {
+            setIsUploading(false);
+        }
+    }
 
     // file upload handler with validation for max files, duplicate files, and file size/type (handled by react-dropzone)
     const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -170,10 +197,11 @@ export default function CreateReportModal({
                 <div className="flex justify-center">
                     <button
                         type="button"
-                        disabled={reportName.trim().length < 3 || selectedFiles.length === 0}
-                        className="bg-gray-200 px-6 py-4 rounded-md text-sm text-black disabled:cursor-not-allowed disabled:opacity-50"
+                        onClick={handleCreateReport}
+                        disabled={reportName.trim().length < 3 || selectedFiles.length === 0 || isUploading}
+                        className="bg-blue-500 px-6 py-4 rounded-md text-sm text-white disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        Generate Report
+                        {isUploading ? "Generating..." : "Generate Report"}
                     </button>
                 </div>
             </div>

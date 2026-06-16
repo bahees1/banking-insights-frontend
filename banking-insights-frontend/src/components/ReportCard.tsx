@@ -7,6 +7,7 @@ type ReportCardProps = {
     dateCreated: string;
     fileCount: number;
     onClick: (reportId: string) => void;
+    onDeleteClick: (reportId: string, reportName: string) => void;
 };
 
 export default function ReportCard({
@@ -15,6 +16,7 @@ export default function ReportCard({
     dateCreated,
     fileCount,
     onClick,
+    onDeleteClick,
 }: ReportCardProps) {
     return (
         <div
@@ -50,9 +52,8 @@ export default function ReportCard({
                 <button
                     type="button"
                     onClick={(event) => {
-                        // important prevents the dashboard from appearing on edit/delete button press
                         event.stopPropagation();
-                        console.log("Delete clicked for report:", reportId);
+                        onDeleteClick(reportId, reportName);
                     }}
                     className="text-md text-black transition-colors hover:text-red-600"
                 >

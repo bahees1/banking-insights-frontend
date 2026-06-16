@@ -13,6 +13,8 @@ export default function ReportsPage() {
     const [reports, setReports] = useState<ReportListItem[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>("");
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+    const [selectedReportToDelete, setSelectedReportToDelete] = useState<{reportId: string;reportName: string;} | null>(null);
 
     const router = useRouter();
     function handleReportCardClick(reportId: string) {
@@ -20,24 +22,34 @@ export default function ReportsPage() {
     }
 
     // load all reports for the user 
-    useEffect(() => {
-        async function loadReports() {
-            try {
-                setIsLoading(true);
-                setErrorMessage("");
+    async function loadReports() {
+        try {
+            setIsLoading(true);
+            setErrorMessage("");
 
-                const reportsFromApi = await getReports();
+            const reportsFromApi = await getReports();
 
-                setReports(reportsFromApi);
-            } catch (error) {
-                setErrorMessage("Unable to load reports. Please try again.");
-            } finally {
-                setIsLoading(false);
-            }
+            setReports(reportsFromApi);
+        } catch (error) {
+            setErrorMessage("Unable to load reports. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
+    }
 
+    useEffect(() => {
         loadReports();
     }, []);
+
+    function handleDeleteClick(reportId: string, reportName: string) {
+        setSelectedReportToDelete({
+            reportId,
+            reportName,
+        });
+
+        setDeleteModalIsOpen(true);
+    }
+
 
     return (
         <main className="min-h-screen">
@@ -50,7 +62,7 @@ export default function ReportsPage() {
                     <button
                         type="button"
                         onClick={() => setCreateModalIsOpen(true)}
-                        className="flex items-center gap-2 rounded-md bg-blue-400 active:bg-blue-600 px-5 py-3 text-sm text-white"
+                        className="flex items-center gap-2 rounded-md bg-blue-500 active:bg-blue-300 px-5 py-3 text-sm text-white"
                     >
                         <FontAwesomeIcon icon={faPlus} />
                         Create
@@ -87,6 +99,7 @@ export default function ReportsPage() {
                                 dateCreated={formatReportDate(report.createdAt)}
                                 fileCount={report.uploadedFileCount}
                                 onClick={handleReportCardClick}
+                                onDeleteClick={handleDeleteClick}
                             />
                         ))}
                     </div>
@@ -96,6 +109,7 @@ export default function ReportsPage() {
             <CreateReportModal
                 isOpen={createModalIsOpen}
                 onClose={() => setCreateModalIsOpen(false)}
+                onReportCreated={loadReports}
             />
         </main>
     );
