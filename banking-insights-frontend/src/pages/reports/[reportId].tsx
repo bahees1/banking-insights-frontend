@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { getReportSummary, getTransactionsForReport } from "@/pages/api/reports";
+import { getReportSummary, getTransactionsForReport, getInsightsForReport } from "@/pages/api/reports";
 import { ReportSummary } from "@/types/reportSummary";
 import { Transaction } from "@/types/transaction";
 import FileSidebar from "@/components/FileSidebar";
 import TransactionTable from "@/components/TransactionTable";
 import TabSwitcher, { DashboardTab } from "@/components/TabSwitcher";
 import TransactionDashboard from "@/components/TransactionDashboard";
+import { Insight } from "@/types/insight";
 
 
 export default function ReportDashboardPage() {
@@ -19,6 +20,7 @@ export default function ReportDashboardPage() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [selectedFileName, setSelectedFileName] = useState<string>("ALL");
+    const [insights, setInsights] = useState<Insight[]>([]);
     
     const [activeTab, setActiveTab] = useState<DashboardTab>("transactions");
 
@@ -39,13 +41,15 @@ export default function ReportDashboardPage() {
                 setIsLoading(true);
                 setErrorMessage("");
 
-                const [summary, transactionsFromApi] = await Promise.all([
+                const [summary, transactionsFromApi, insightsFromApi] = await Promise.all([
                     getReportSummary(reportId),
                     getTransactionsForReport(reportId),
+                    getInsightsForReport(reportId),
                 ]);
 
                 setReportSummary(summary);
                 setTransactions(transactionsFromApi);
+                setInsights(insightsFromApi);
             } catch (error) {
                 setErrorMessage("Unable to load report data.");
             } finally {
@@ -87,6 +91,9 @@ export default function ReportDashboardPage() {
                                     <div>
                                         {reportSummary.uploadedFiles.length} Files
                                     </div>
+                                    <p className="pt-2 text-sm text-gray-600">
+                                        Insights loaded: {insights.length}
+                                    </p>
                                 </div>
 
                             </div>
@@ -110,15 +117,19 @@ export default function ReportDashboardPage() {
                                 )}
 
                                 {activeTab === "insights" && (
-                                    <section className="rounded-2xl bg-white px-6 py-8 shadow-sm">
-                                        <h2 className="text-xl font-semibold text-black">
-                                            Insights Dashboard
-                                        </h2>
+                                    <div className="flex flex-col gap-6">
+                                        <section className="rounded-2xl bg-white px-6 py-8 shadow-sm">
+                                            <h2 className="text-xl font-semibold text-black">
+                                                Insights Dashboard
+                                            </h2>
 
-                                        <p className="pt-2 text-sm text-gray-600">
-                                            Insight cards will go here.
-                                        </p>
-                                    </section>
+                                            <p className="pt-2 text-sm text-gray-600">
+                                                Insights loaded: {insights.length}
+                                            </p>
+                                        </section>
+
+                                        <TransactionTable transactions={filteredTransactions} />
+                                    </div>
                                 )}
                             
                             </div>

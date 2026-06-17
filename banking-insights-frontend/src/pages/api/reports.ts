@@ -2,6 +2,7 @@ import { apiFetch } from "@/lib/api";
 import { ReportListItem } from "@/types/report";
 import { ReportSummary } from "@/types/reportSummary";
 import { Transaction } from "@/types/transaction";
+import { Insight } from "@/types/insight";
 import { UploadReportResponse } from "@/types/uploadReport";
 
 type AuthOptions = {
@@ -113,4 +114,23 @@ export async function deleteReport(
     if (!response.ok) {
         throw new Error("Failed to delete report.");
     }
+}
+
+export async function getInsightsForReport(
+    reportId: string,
+    authOptions: AuthOptions = {}
+): Promise<Insight[]> {
+    const response = await apiFetch(
+        `/api/reports/${reportId}/insights`,
+        {
+            method: "GET",
+        },
+        authOptions
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch insights.");
+    }
+
+    return response.json();
 }
