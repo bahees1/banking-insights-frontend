@@ -9,6 +9,7 @@ import TransactionTable from "@/components/TransactionTable";
 import TabSwitcher, { DashboardTab } from "@/components/TabSwitcher";
 import TransactionDashboard from "@/components/TransactionDashboard";
 import { Insight } from "@/types/insight";
+import InsightDashboard from "@/components/InsightDashboard";
 
 
 export default function ReportDashboardPage() {
@@ -91,9 +92,6 @@ export default function ReportDashboardPage() {
                                     <div>
                                         {reportSummary.uploadedFiles.length} Files
                                     </div>
-                                    <p className="pt-2 text-sm text-gray-600">
-                                        Insights loaded: {insights.length}
-                                    </p>
                                 </div>
 
                             </div>
@@ -118,16 +116,10 @@ export default function ReportDashboardPage() {
 
                                 {activeTab === "insights" && (
                                     <div className="flex flex-col gap-6">
-                                        <section className="rounded-2xl bg-white px-6 py-8 shadow-sm">
-                                            <h2 className="text-xl font-semibold text-black">
-                                                Insights Dashboard
-                                            </h2>
-
-                                            <p className="pt-2 text-sm text-gray-600">
-                                                Insights loaded: {insights.length}
-                                            </p>
-                                        </section>
-
+                                        <InsightDashboard
+                                            insights={insights}
+                                            transactions={filteredTransactions}
+                                        />
                                         <TransactionTable transactions={filteredTransactions} />
                                     </div>
                                 )}
