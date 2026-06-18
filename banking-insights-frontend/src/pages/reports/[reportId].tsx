@@ -116,10 +116,7 @@ export default function ReportDashboardPage() {
 
                                 {activeTab === "insights" && (
                                     <div className="flex flex-col gap-6">
-                                        <InsightDashboard
-                                            insights={insights}
-                                            transactions={filteredTransactions}
-                                        />
+                                        <InsightDashboard insights={insights} />
                                         <TransactionTable transactions={filteredTransactions} />
                                     </div>
                                 )}
