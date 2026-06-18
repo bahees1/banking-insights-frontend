@@ -36,7 +36,7 @@ export default function TopInsights({
 
     return (
         <section className="flex flex-col gap-4">
-            <h5 className="text-sm font-medium text-black">
+            <h5 className="font-medium text-black">
                 Top Insights
             </h5>
 
@@ -55,7 +55,7 @@ export default function TopInsights({
                         value="-"
                     />
                 )}
-                
+
                 <TopInsightCard
                     title="Highest Spent Category"
                     label={

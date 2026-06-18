@@ -15,10 +15,10 @@ export default function TopInsightCard({
             </p>
 
             <div className="flex flex-col">
-                 <p className="!text-2xl text-end font-semibold text-black">
+                 <p className="!text-3xl text-end font-semibold text-black">
                     {value}
                 </p>
-                <p className="text-end text-gray-600">
+                <p className="!text-md text-end text-gray-600">
                     {label}
                 </p>
 

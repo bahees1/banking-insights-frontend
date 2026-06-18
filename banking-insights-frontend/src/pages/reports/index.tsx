@@ -80,9 +80,9 @@ export default function ReportsPage() {
         <main className="min-h-screen">
             <section className="px-6 pt-44 md:px-24 md:pt-32">
                 <div className="flex items-center justify-between pb-8">
-                    <h3 className="text-lg font-medium text-black">
+                    <h4 className="text-lg font-semibold text-black">
                         My Reports
-                    </h3>
+                    </h4>
                     
 
                     <button
