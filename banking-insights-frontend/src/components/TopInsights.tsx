@@ -1,5 +1,6 @@
 import { Insight } from "@/types/insight";
-import TopInsightCard from "@/components/TopInsightCard";
+import TopInsightCard from "@/components/cards/TopInsightCard";
+import FlexScoreCard from "@/components/cards/FlexScoreCard";
 
 type TopInsightsProps = {
     insights: Insight[];
@@ -11,6 +12,7 @@ export default function TopInsights({
     const highestSpentCategory = findInsight(insights, "HIGHEST_SPENT_CATEGORY");
     const unusualMerchant = findInsight(insights, "UNUSUAL_MERCHANT");
     const largeSingleTransaction = findInsight(insights, "LARGE_SINGLE_TRANSACTION");
+    const flexScore = findInsight(insights, "FLEX_SCORE");
     
     const highestSpentCategoryMetadata =
         parseMetadata<HighestSpentCategoryMetadata>(
@@ -27,6 +29,11 @@ export default function TopInsights({
             largeSingleTransaction?.metadataJson ?? null
         );
 
+    const flexScoreMetadata =
+        parseMetadata<FlexScoreMetadata>(
+            flexScore?.metadataJson ?? null
+        );
+
     return (
         <section className="flex flex-col gap-4">
             <h5 className="text-sm font-medium text-black">
@@ -34,6 +41,21 @@ export default function TopInsights({
             </h5>
 
             <div className="flex flex-col gap-4 lg:flex-row">
+
+                {flexScoreMetadata ? (
+                    <FlexScoreCard
+                        score={flexScoreMetadata.score}
+                        necessitiesAmount={flexScoreMetadata.necessitiesAmount}
+                        nonNecessitiesAmount={flexScoreMetadata.nonNecessitiesAmount}
+                    />
+                ) : (
+                    <TopInsightCard
+                        title="Flex Score"
+                        label="No score found"
+                        value="-"
+                    />
+                )}
+                
                 <TopInsightCard
                     title="Highest Spent Category"
                     label={
@@ -57,11 +79,7 @@ export default function TopInsights({
                             : "-"
                     }
                 />
-                <TopInsightCard
-                    title="Financial Score"
-                    label="coming soon..."
-                    value={0}
-                />
+                
 
                 <TopInsightCard
                     title="Large Single Transaction"
@@ -91,6 +109,15 @@ type HighestSpentCategoryMetadata = {
 type MerchantAmountMetadata = {
     merchant: string;
     amount: number;
+};
+
+type FlexScoreMetadata = {
+    score: number;
+    necessitiesAmount: number;
+    nonNecessitiesAmount: number;
+    untrackedAmount: number;
+    essentialCategories: string[];
+    nonEssentialCategories: string[];
 };
 
 function parseMetadata<T>(metadataJson: string | null): T | null {

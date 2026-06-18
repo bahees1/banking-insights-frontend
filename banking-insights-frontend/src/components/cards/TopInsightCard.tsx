@@ -10,15 +10,15 @@ export default function TopInsightCard({
 }: TopInsightCardProps) {
     return (
         <div className="flex min-h-[120px] w-full flex-col gap-4 rounded-xl bg-white px-5 py-5 shadow-sm lg:flex-1">
-            <p className="font-medium text-black">
+            <p className="!font-semibold text-black">
                 {title}
             </p>
 
             <div className="flex flex-col">
-                 <p className="!text-2xl font-semibold text-black">
+                 <p className="!text-2xl text-end font-semibold text-black">
                     {value}
                 </p>
-                <p className="!text-sm text-gray-600">
+                <p className="text-end text-gray-600">
                     {label}
                 </p>
 
