@@ -21,20 +21,23 @@ export default function ReportCard({
     return (
         <div
             onClick={() => onClick(reportId)}
-            className="flex cursor-pointer flex-col gap-4 rounded-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 md:flex-row md:items-center md:justify-between"
+            className="flex min-w-[340px] cursor-pointer flex-row gap-4 rounded-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 justify-between"
         >
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-12">
+            <div className="flex flex-col gap-6 md:items-start md:gap-10">
                 <p className="text-sm font-medium text-black">
                     {reportName}
                 </p>
+                <div className="flex flex-row gap-4">
+                    <p className="text-sm text-gray-700">
+                        {dateCreated}
+                    </p>
+                    •
+                    <p className="text-sm text-blue-700">
+                        {fileCount} files
+                    </p>
 
-                <p className="text-sm text-gray-700">
-                    {dateCreated}
-                </p>
-
-                <p className="text-sm text-gray-700">
-                    {fileCount} files
-                </p>
+                </div>
+                
             </div>
 
             <div className="flex items-center gap-6">

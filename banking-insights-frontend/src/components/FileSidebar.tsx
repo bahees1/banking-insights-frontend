@@ -23,9 +23,9 @@ export default function FileSidebar({
     ];
 
     return (
-        <aside className="w-full rounded-xl bg-white px-4 py-5 shadow-sm md:w-[240px] md:min-w-[240px]">
+        <aside className="w-full rounded-xl bg-white px-4 py-5 shadow-sm md:w-[240px] md:min-w-[180px]">
             <div className="flex flex-col gap-1 pb-4">
-                <h6 className="!text-md font-medium text-gray-700">
+                <h6 className="!text-md font-medium text-gray-600">
                     File List
                 </h6>
             </div>

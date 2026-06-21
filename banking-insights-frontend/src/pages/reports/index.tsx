@@ -79,10 +79,10 @@ export default function ReportsPage() {
     return (
         <main className="min-h-screen">
             <section className="px-6 pt-44 md:px-24 md:pt-32">
-                <div className="flex items-center justify-between pb-8">
-                    <h4 className="text-lg font-semibold text-black">
+                <div className="flex min-w-[340px] items-center justify-between pb-8">
+                    <h5 className="text-lg font-semibold text-black">
                         My Reports
-                    </h4>
+                    </h5>
                     
 
                     <button

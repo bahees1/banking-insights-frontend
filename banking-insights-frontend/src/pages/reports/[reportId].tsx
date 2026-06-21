@@ -63,7 +63,7 @@ export default function ReportDashboardPage() {
 
     return (
         <main className="min-h-screen min-w-[320px]">
-            <section className="px-6 pt-44 md:px-34 md:pt-32">
+            <section className="px-6 pt-35 md:px-34 md:pt-32">
                 {isLoading && (
                     <p className="text-sm text-gray-600">
                         Loading report...
@@ -77,10 +77,10 @@ export default function ReportDashboardPage() {
                 )}
 
                 {!isLoading && !errorMessage && reportSummary && (
-                    <div className="flex flex-col gap-6">
-                        <div className="flex flex-col md:flex-row gap-2 justify-between">
+                    <div className="flex flex-col gap-6 md:gap-10">
+                        <div className="flex flex-col md:flex-row gap-6 justify-between">
                             <div className="flex flex-col gap-2">
-                                <h5 className="text-2xl font-semibold text-black">
+                                <h5 className=" font-semibold text-black">
                                     {reportSummary.fileName}
                                 </h5>
 
