@@ -2,6 +2,7 @@ import { Insight } from "@/types/insight";
 import { parseMetadata } from "@/utils/insightMetadata";
 import TrendChangeCard, { CategoryChangeItem } from "@/components/cards/TrendChangeCard";
 import NewCategoryCard, { NewCategoryItem } from "@/components/cards/NewCategoryCard";
+import InsightUnavailableCard from "@/components/cards/InsightUnavailableCard";
 
 type MonthlyTrendsProps = {
     insights: Insight[];
@@ -38,9 +39,7 @@ export default function MonthlyTrends({
         newCategoryInsight?.metadataJson ?? null
     );
 
-    if (!increasedMetadata && !decreasedMetadata && !newCategoryMetadata) {
-        return null;
-    }
+
 
     return (
         <section className="flex flex-col gap-4">
@@ -49,6 +48,10 @@ export default function MonthlyTrends({
             </h5>
 
             <div className="flex flex-col gap-4 lg:flex-row">
+                {!increasedMetadata && !decreasedMetadata && !newCategoryMetadata && (
+                    <InsightUnavailableCard message="Monthly trends are not available right now." />
+                )}
+
                 {increasedMetadata && (
                     <TrendChangeCard
                         title="Category with increase"

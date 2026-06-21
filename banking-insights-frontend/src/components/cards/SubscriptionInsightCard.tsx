@@ -11,7 +11,7 @@ export default function SubscriptionInsightCard({
 }: SubscriptionInsightCardProps) {
     return (
         <InsightStatCard
-            title="Subscription-like Merchant"
+            title="Subscriptions"
             label={formatMerchantName(merchant)}
             value={formatCurrency(averageAmount)}
         />

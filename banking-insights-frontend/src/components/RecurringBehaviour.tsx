@@ -2,6 +2,7 @@ import { Insight } from "@/types/insight";
 import { parseMetadata } from "@/utils/insightMetadata";
 import RepeatedSmallChargesCard from "@/components/cards/RepeatedSmallChargesCard";
 import SubscriptionInsightCard from "@/components/cards/SubscriptionInsightCard";
+import InsightUnavailableCard from "@/components/cards/InsightUnavailableCard";
 
 type RecurringBehaviourProps = {
     insights: Insight[];
@@ -59,9 +60,7 @@ export default function RecurringBehaviour({
     const topSubscription =
         subscriptionMetadata?.subscriptions?.[0];
 
-    if (!repeatedSmallChargesMetadata && !topSubscription) {
-        return null;
-    }
+    
 
     return (
         <section className="flex flex-col gap-4">
@@ -70,6 +69,10 @@ export default function RecurringBehaviour({
             </h5>
 
             <div className="flex flex-col gap-4 lg:flex-row">
+                {!repeatedSmallChargesMetadata && !topSubscription && (
+                    <InsightUnavailableCard message="Recurring behaviour is not available right now." />
+                )}
+
                 {repeatedSmallChargesMetadata && (
                     <RepeatedSmallChargesCard
                         transactionCount={repeatedSmallChargesMetadata.transactionCount}
