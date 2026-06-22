@@ -116,17 +116,21 @@ export default function ReportsPage() {
                 )}
 
                 {!isLoading && !errorMessage && reports.length > 0 && (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap">
                         {reports.map((report) => (
-                            <ReportCard
+                            <div
                                 key={report.reportId}
-                                reportId={report.reportId}
-                                reportName={report.fileName}
-                                dateCreated={formatReportDate(report.createdAt)}
-                                fileCount={report.uploadedFileCount}
-                                onClick={handleReportCardClick}
-                                onDeleteClick={handleDeleteClick}
-                            />
+                                className="w-full lg:w-[calc(50%-0.5rem)] xl:w-[calc(33.333%-0.7rem)]"
+                            >
+                                <ReportCard
+                                    reportId={report.reportId}
+                                    reportName={report.fileName}
+                                    dateCreated={formatReportDate(report.createdAt)}
+                                    fileCount={report.uploadedFileCount}
+                                    onClick={handleReportCardClick}
+                                    onDeleteClick={handleDeleteClick}
+                                />
+                            </div>
                         ))}
                     </div>
                 )}

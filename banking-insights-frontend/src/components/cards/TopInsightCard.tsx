@@ -9,7 +9,7 @@ export default function TopInsightCard({
     value,
 }: TopInsightCardProps) {
     return (
-        <div className="flex min-h-[120px] w-full flex-col gap-4 rounded-xl bg-white px-5 py-5 shadow-sm lg:flex-1">
+        <div className="flex min-h-[120px] w-full flex-col gap-4 rounded-xl bg-white px-5 py-5 shadow-md lg:flex-1">
             <p className="!font-semibold text-black">
                 {title}
             </p>

@@ -7,12 +7,12 @@ export default function Navbar() {
     return (
         <>
             {/* Desktop Navbar */}
-            <nav className="fixed top-4 left-1/2 z-50 hidden w-[90%] min-w-[400px] -translate-x-1/2 rounded-2xl bg-white px-6 py-2 shadow-md min-[500px]:block">
+            <nav className="fixed top-4 left-1/2 z-50 hidden w-[90%] min-w-[400px] -translate-x-1/2 rounded-2xl bg-white px-6 py-2 shadow-md min-[600px]:block">
                 <div className="flex min-w-[400px] flex-nowrap items-center justify-between gap-8">
                     <div className="flex shrink-0 items-center gap-8">
                         <div className="whitespace-nowrap text-sm font-medium flex flex-row items-center gap-2 text-blue-600">
                             <FontAwesomeIcon icon={faBolt} />
-                            Insightly
+                            Personal Spending Insights
                         </div>
 
                         <Link
@@ -24,7 +24,7 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex shrink-0 items-center gap-6">
-                        <div className="whitespace-nowrap text-sm font-bold text-gray-700">
+                        <div className="whitespace-nowrap text-sm font-bold text-gray-400">
                             UsernameUsernameUsername
                         </div>
                         <div className="flex items-center">
@@ -41,11 +41,12 @@ export default function Navbar() {
             </nav>
 
             {/* Mobile Navbar */}
-            <nav className="fixed top-4 left-1/2 z-50 block w-[90%] min-w-[320px] -translate-x-1/2 rounded-2xl bg-white px-4 py-4 shadow-md min-[500px]:hidden">
+            <nav className="fixed top-4 left-1/2 z-50 block w-[90%] min-w-[320px] -translate-x-1/2 rounded-2xl bg-white px-4 py-4 shadow-md min-[600px]:hidden">
                 <div className="flex items-center justify-between">
-                    <div className="whitespace-nowrap text-sm font-medium">
-                        Logo + Site Name
-                    </div>
+                    <div className="whitespace-nowrap text-sm font-medium flex flex-row items-center gap-2 text-blue-600">
+                            <FontAwesomeIcon icon={faBolt} />
+                            Personal Spending Insights
+                        </div>
 
                     <Menu as="div" className="relative">
                         <MenuButton className="text-gray-700 transition-colors hover:text-black focus:outline-none focus:ring-0">

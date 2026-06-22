@@ -21,18 +21,18 @@ export default function ReportCard({
     return (
         <div
             onClick={() => onClick(reportId)}
-            className="flex min-w-[340px] cursor-pointer flex-row gap-4 rounded-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 justify-between"
+            className="flex min-w-[340px] cursor-pointer flex-row gap-4 rounded-lg shadow-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 justify-between"
         >
-            <div className="flex flex-col gap-6 md:items-start md:gap-10">
-                <p className="text-sm font-medium text-black">
+            <div className="flex flex-col gap-6 md:items-start">
+                <p className="!font-semibold text-black">
                     {reportName}
                 </p>
                 <div className="flex flex-row gap-4">
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-500">
                         {dateCreated}
                     </p>
                     •
-                    <p className="text-sm text-blue-700">
+                    <p className="text-sm text-blue-500">
                         {fileCount} files
                     </p>
 
@@ -47,7 +47,7 @@ export default function ReportCard({
                         event.stopPropagation();
                         onDeleteClick(reportId, reportName);
                     }}
-                    className="text-md text-black transition-colors hover:text-red-600"
+                    className="!text-md md:text-xl text-black transition-colors hover:text-red-600"
                 >
                     <FontAwesomeIcon icon={faTrash} />
                 </button>
