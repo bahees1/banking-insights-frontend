@@ -1,12 +1,32 @@
+import { useEffect, useState } from "react";
+
 import { Transaction } from "@/types/transaction";
 
 type TransactionTableProps = {
     transactions: Transaction[];
 };
 
+const ROWS_PER_PAGE = 20;
+
 export default function TransactionTable({
     transactions,
 }: TransactionTableProps) {
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
+    const totalPages = Math.max(
+        1,
+        Math.ceil(transactions.length / ROWS_PER_PAGE)
+    );
+
+    const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
+    const endIndex = startIndex + ROWS_PER_PAGE;
+
+    const visibleTransactions = transactions.slice(startIndex, endIndex);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [transactions]);
+
     return (
         <div className="w-full overflow-hidden rounded-2xl bg-white shadow-sm">
             <div className="flex items-center justify-between px-6 py-5">
@@ -32,7 +52,7 @@ export default function TransactionTable({
                             </th>
 
                             <th className="px-6 py-3 text-right text-xs font-medium text-black-500">
-                                Amount
+                                Price
                             </th>
                         </tr>
                     </thead>
@@ -49,7 +69,7 @@ export default function TransactionTable({
                             </tr>
                         )}
 
-                        {transactions.map((transaction) => (
+                        {visibleTransactions.map((transaction) => (
                             <tr
                                 key={transaction.transactionId}
                                 className="border-b border-gray-200"
@@ -70,6 +90,38 @@ export default function TransactionTable({
                     </tbody>
                 </table>
             </div>
+
+            {transactions.length > 0 && (
+                <div className="flex flex-col gap-3 border-t border-gray-200 px-6 py-4 md:flex-row md:items-center md:justify-between">
+                    <p className="!text-sm font-semibold text-center text-gray-600">
+                        Showing {startIndex + 1}-{Math.min(endIndex, transactions.length)} of {transactions.length}
+                    </p>
+
+                    <div className="flex items-center justify-center gap-4">
+                        <button
+                            type="button"
+                            onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
+                            disabled={currentPage === 1}
+                            className="rounded-md bg-gray-100 px-4 py-2 text-sm text-black transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-gray-100"
+                        >
+                            Previous
+                        </button>
+
+                        <p className="!text-sm font-semibold text-gray-600">
+                            Page {currentPage} of {totalPages}
+                        </p>
+
+                        <button
+                            type="button"
+                            onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
+                            disabled={currentPage === totalPages}
+                            className="rounded-md bg-gray-100 px-4 py-2 text-sm text-black transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-gray-100"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
