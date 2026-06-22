@@ -32,7 +32,7 @@ export default function TransactionTable({
                             </th>
 
                             <th className="px-6 py-3 text-right text-xs font-medium text-black-500">
-                                Price
+                                Amount
                             </th>
                         </tr>
                     </thead>

@@ -78,7 +78,7 @@ export default function ReportsPage() {
 
     return (
         <main className="min-h-screen">
-            <section className="px-6 pt-44 md:px-24 md:pt-32">
+            <section className="mx-auto w-full max-w-7xl px-4 pt-44 sm:px-6 md:pt-32 lg:px-8 xl:px-10">
                 <div className="flex min-w-[340px] items-center justify-between pb-8">
                     <h5 className="text-lg font-semibold text-black">
                         My Reports
