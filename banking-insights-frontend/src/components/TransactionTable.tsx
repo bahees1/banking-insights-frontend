@@ -43,15 +43,15 @@ export default function TransactionTable({
                 <table className="w-full min-w-[600px]">
                     <thead>
                         <tr className="border-y border-gray-300">
-                            <th className="px-6 py-3 text-left text-xs font-medium text-black-500">
+                            <th className="px-6 py-3 text-left text-sm md:text-md font-medium text-black-500">
                                 Date
                             </th>
 
-                            <th className="px-6 py-3 text-left text-xs font-medium text-black-500">
+                            <th className="px-6 py-3 text-left text-sm md:text-md font-medium text-black-500">
                                 Merchant
                             </th>
 
-                            <th className="px-6 py-3 text-right text-xs font-medium text-black-500">
+                            <th className="px-6 py-3 text-right text-sm font-medium text-black-500">
                                 Price
                             </th>
                         </tr>

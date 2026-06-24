@@ -3,6 +3,7 @@ import { parseMetadata } from "@/utils/insightMetadata";
 import RepeatedSmallChargesCard from "@/components/cards/RepeatedSmallChargesCard";
 import SubscriptionInsightCard from "@/components/cards/SubscriptionInsightCard";
 import InsightUnavailableCard from "@/components/cards/InsightUnavailableCard";
+import MostSpentMerchantCard from "@/components/cards/MostSpentMerchantCard";
 
 type RecurringBehaviourProps = {
     insights: Insight[];
@@ -34,6 +35,14 @@ type SubscriptionMetadata = {
     amountTolerancePercent: number;
 };
 
+type MostSpentMerchantMetadata = {
+    merchant: string;
+    totalAmount: number;
+    transactionCount: number;
+    transactionIds: string[];
+    sourceFileNames: string[];
+};
+
 export default function RecurringBehaviour({
     insights,
 }: RecurringBehaviourProps) {
@@ -60,7 +69,15 @@ export default function RecurringBehaviour({
     const topSubscription =
         subscriptionMetadata?.subscriptions?.[0];
 
-    
+    const mostSpentMerchantInsight = findInsight(
+        insights,
+        "MOST_SPENT_MERCHANT"
+    );
+
+    const mostSpentMerchantMetadata =
+        parseMetadata<MostSpentMerchantMetadata>(
+            mostSpentMerchantInsight?.metadataJson ?? null
+        );
 
     return (
         <section className="flex flex-col gap-4">
@@ -69,7 +86,7 @@ export default function RecurringBehaviour({
             </h5>
 
             <div className="flex flex-col gap-4 lg:flex-row">
-                {!repeatedSmallChargesMetadata && !topSubscription && (
+                {!repeatedSmallChargesMetadata && !topSubscription && !mostSpentMerchantMetadata && (
                     <InsightUnavailableCard message="Recurring behaviour is not available right now." />
                 )}
 
@@ -84,6 +101,13 @@ export default function RecurringBehaviour({
                     <SubscriptionInsightCard
                         merchant={topSubscription.merchant}
                         averageAmount={topSubscription.averageAmount}
+                    />
+                )}
+
+                {mostSpentMerchantMetadata && (
+                    <MostSpentMerchantCard
+                        merchant={mostSpentMerchantMetadata.merchant}
+                        totalAmount={mostSpentMerchantMetadata.totalAmount}
                     />
                 )}
             </div>
