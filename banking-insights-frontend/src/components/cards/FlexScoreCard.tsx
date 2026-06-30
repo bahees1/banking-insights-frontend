@@ -25,7 +25,7 @@ export default function FlexScoreCard({
             </p>
 
             <div className="flex flex-col gap-3">
-                <p className="!text-2xl text-end font-semibold text-black">
+                <p className=" md:!text-2xl text-end font-semibold text-black">
                     {score}/100
                 </p>
 

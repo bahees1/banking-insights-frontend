@@ -63,32 +63,22 @@ export default function TopInsights({
                             ? formatCategory(highestSpentCategoryMetadata.all.category)
                             : "No category found"
                     }
-                    value={
-                        highestSpentCategoryMetadata
-                            ? formatCurrency(highestSpentCategoryMetadata.all.amount)
-                            : "-"
-                    }
+                    value="-"
+                    amount={highestSpentCategoryMetadata?.all.amount}
                 />
 
                 <TopInsightCard
                     title="Unusual Merchant"
                     label={unusualMerchantMetadata?.merchant ?? "No merchant found"}
-                    value={
-                        unusualMerchantMetadata
-                            ? formatCurrency(unusualMerchantMetadata.amount)
-                            : "-"
-                    }
+                    value="-"
+                    amount={unusualMerchantMetadata?.amount}
                 />
-                
 
                 <TopInsightCard
                     title="Large Single Transaction"
                     label={largeSingleTransactionMetadata?.merchant ?? "No transaction found"}
-                    value={
-                        largeSingleTransactionMetadata
-                            ? formatCurrency(largeSingleTransactionMetadata.amount)
-                            : "-"
-                    }
+                    value="-"
+                    amount={largeSingleTransactionMetadata?.amount}
                 />
             </div>
         </section>
