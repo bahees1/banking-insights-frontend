@@ -10,6 +10,10 @@ import TabSwitcher, { DashboardTab } from "@/components/TabSwitcher";
 import TransactionDashboard from "@/components/TransactionDashboard";
 import { Insight } from "@/types/insight";
 import InsightDashboard from "@/components/InsightDashboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import EditReportNameModal from "@/components/modals/EditReportNameModal";
+import { updateReportName } from "@/pages/api/reports";
 
 
 export default function ReportDashboardPage() {
@@ -24,6 +28,9 @@ export default function ReportDashboardPage() {
     const [insights, setInsights] = useState<Insight[]>([]);
     
     const [activeTab, setActiveTab] = useState<DashboardTab>("transactions");
+
+    const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
+    const [isSavingReportName, setIsSavingReportName] = useState<boolean>(false);
 
     const filteredTransactions =
         selectedFileName === "ALL"
@@ -61,6 +68,29 @@ export default function ReportDashboardPage() {
         loadReportData();
     }, [router.isReady, reportId]);
 
+    async function handleReportNameSave(newReportName: string) {
+        if (!reportSummary) {
+            return;
+        }
+
+        try {
+            setIsSavingReportName(true);
+
+            const updatedReport = await updateReportName(
+                reportSummary.reportId,
+                newReportName
+            );
+
+            setReportSummary(updatedReport);
+
+            setEditModalIsOpen(false);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsSavingReportName(false);
+        }
+    }
+
     return (
         <main className="min-h-screen min-w-[320px]">
             <section className="mx-auto w-full max-w-7xl px-6 pt-35 sm:px-6 md:pt-32 lg:px-8 xl:px-10">
@@ -80,9 +110,19 @@ export default function ReportDashboardPage() {
                     <div className="flex flex-col gap-6 md:gap-10">
                         <div className="flex flex-col md:flex-row gap-6 justify-between">
                             <div className="flex flex-col gap-2">
-                                <h5 className=" font-semibold text-black">
-                                    {reportSummary.fileName}
-                                </h5>
+                                <div className="flex flex-row gap-2 ">
+                                    <h5 className=" font-semibold text-black">
+                                        {reportSummary.fileName}
+                                    </h5>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditModalIsOpen(true)}
+                                        className=" text-gray-500 transition-colors  hover:bg-gray-100 hover:text-blue-500"
+                                    >
+                                        <FontAwesomeIcon icon={faPen} />
+                                    </button>
+                                </div>
 
                                 <div className="flex flex-row gap-2 text-md text-gray-700">
                                     <div>
@@ -127,6 +167,13 @@ export default function ReportDashboardPage() {
                     </div>
                 )}
             </section>
+            <EditReportNameModal
+                isOpen={editModalIsOpen}
+                currentReportName={reportSummary?.fileName ?? ""}
+                isSaving={isSavingReportName}
+                onClose={() => setEditModalIsOpen(false)}
+                onSave={handleReportNameSave}
+            />
         </main>
     );
 }

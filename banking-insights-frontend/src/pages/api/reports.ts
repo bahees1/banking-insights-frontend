@@ -134,3 +134,29 @@ export async function getInsightsForReport(
 
     return response.json();
 }
+
+export async function updateReportName(
+    reportId: string,
+    reportName: string,
+    authOptions: AuthOptions = {}
+): Promise<ReportSummary> {
+    const response = await apiFetch(
+        `/api/reports/${reportId}/name`,
+        {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                reportName,
+            }),
+        },
+        authOptions
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to update report name.");
+    }
+
+    return response.json();
+}

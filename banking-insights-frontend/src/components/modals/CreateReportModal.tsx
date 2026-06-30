@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { uploadReport } from "../pages/api/reports";
+import { uploadReport } from "../../pages/api/reports";
 
 type CreateReportModalProps = {
     isOpen: boolean;

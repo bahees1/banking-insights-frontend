@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 
 import ReportCard from "@/components/ReportCard";
-import CreateReportModal from "@/components/CreateReportModal";
+import CreateReportModal from "@/components/modals/CreateReportModal";
 import { getReports } from "@/pages/api/reports";
 import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import DeleteReportModal from "@/components/DeleteReportModal";
+import DeleteReportModal from "@/components/modals/DeleteReportModal";
 import { deleteReport } from "../api/reports";
 
 export default function ReportsPage() {
