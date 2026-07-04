@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useAuth } from "@clerk/nextjs";
 
 import { getReportSummary, getTransactionsForReport, getInsightsForReport } from "@/pages/api/reports";
 import { ReportSummary } from "@/types/reportSummary";
@@ -19,6 +20,7 @@ import { updateReportName } from "@/pages/api/reports";
 export default function ReportDashboardPage() {
     const router = useRouter();
     const { reportId } = router.query;
+    const { getToken } = useAuth();
 
     const [reportSummary, setReportSummary] = useState<ReportSummary | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -49,10 +51,12 @@ export default function ReportDashboardPage() {
                 setIsLoading(true);
                 setErrorMessage("");
 
+                const token = await getToken();
+
                 const [summary, transactionsFromApi, insightsFromApi] = await Promise.all([
-                    getReportSummary(reportId),
-                    getTransactionsForReport(reportId),
-                    getInsightsForReport(reportId),
+                    getReportSummary(reportId, { token }),
+                    getTransactionsForReport(reportId, { token }),
+                    getInsightsForReport(reportId, { token }),
                 ]);
 
                 setReportSummary(summary);
@@ -76,9 +80,12 @@ export default function ReportDashboardPage() {
         try {
             setIsSavingReportName(true);
 
+            const token = await getToken();
+
             const updatedReport = await updateReportName(
                 reportSummary.reportId,
-                newReportName
+                newReportName,
+                { token }
             );
 
             setReportSummary(updatedReport);

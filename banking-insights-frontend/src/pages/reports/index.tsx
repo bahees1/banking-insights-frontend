@@ -5,7 +5,7 @@ import { useAuth } from "@clerk/nextjs";
 
 import ReportCard from "@/components/ReportCard";
 import CreateReportModal from "@/components/modals/CreateReportModal";
-import { getCurrentUser, getReports } from "@/pages/api/reports";
+import { getReports } from "@/pages/api/reports";
 import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteReportModal from "@/components/modals/DeleteReportModal";
@@ -33,11 +33,6 @@ export default function ReportsPage() {
             setErrorMessage("");
 
             const token = await getToken();
-            const currentUser = await getCurrentUser({
-                token,
-            });
-
-            console.log(currentUser);
 
             const reportsFromApi = await getReports({
                 token,

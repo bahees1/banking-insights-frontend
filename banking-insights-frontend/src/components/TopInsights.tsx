@@ -69,7 +69,7 @@ export default function TopInsights({
 
                 <TopInsightCard
                     title="Unusual Merchant"
-                    label={unusualMerchantMetadata?.merchant ?? "No merchant found"}
+                    label={unusualMerchantMetadata?.merchant ?? "No unusual merchant"}
                     value="-"
                     amount={unusualMerchantMetadata?.amount}
                 />
