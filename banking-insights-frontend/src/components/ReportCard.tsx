@@ -21,9 +21,9 @@ export default function ReportCard({
     return (
         <div
             onClick={() => onClick(reportId)}
-            className="flex min-w-[340px] cursor-pointer flex-row gap-4 rounded-lg shadow-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 justify-between"
+            className="flex min-w-[340px] cursor-pointer flex-row gap-4 rounded-lg md:min-h-[110px] lg:min-h-[140px] shadow-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 justify-between"
         >
-            <div className="flex flex-col gap-6 md:items-start">
+            <div className="flex flex-col justify-between gap-6 md:items-start">
                 <p className="!font-semibold text-black">
                     {reportName}
                 </p>

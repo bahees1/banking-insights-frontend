@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useAuth } from "@clerk/nextjs";
 
 import ReportCard from "@/components/ReportCard";
 import CreateReportModal from "@/components/modals/CreateReportModal";
-import { getReports } from "@/pages/api/reports";
+import { getCurrentUser, getReports } from "@/pages/api/reports";
 import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteReportModal from "@/components/modals/DeleteReportModal";
@@ -18,6 +19,7 @@ export default function ReportsPage() {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const [selectedReportToDelete, setSelectedReportToDelete] = useState<{reportId: string;reportName: string;} | null>(null);
+    const { getToken } = useAuth();
 
     const router = useRouter();
     function handleReportCardClick(reportId: string) {
@@ -30,7 +32,16 @@ export default function ReportsPage() {
             setIsLoading(true);
             setErrorMessage("");
 
-            const reportsFromApi = await getReports();
+            const token = await getToken();
+            const currentUser = await getCurrentUser({
+                token,
+            });
+
+            console.log(currentUser);
+
+            const reportsFromApi = await getReports({
+                token,
+            });
 
             setReports(reportsFromApi);
         } catch (error) {
@@ -62,7 +73,11 @@ export default function ReportsPage() {
             setIsDeleting(true);
             setErrorMessage("");
 
-            await deleteReport(selectedReportToDelete.reportId);
+            const token = await getToken();
+
+            await deleteReport(selectedReportToDelete.reportId, {
+                token,
+            });
 
             await loadReports();
 
@@ -73,6 +88,10 @@ export default function ReportsPage() {
         } finally {
             setIsDeleting(false);
         }
+    }
+
+    async function getAuthToken() {
+        return await getToken();
     }
 
 
@@ -140,6 +159,7 @@ export default function ReportsPage() {
                 isOpen={createModalIsOpen}
                 onClose={() => setCreateModalIsOpen(false)}
                 onReportCreated={loadReports}
+                getAuthToken={getAuthToken}
             />
 
             <DeleteReportModal

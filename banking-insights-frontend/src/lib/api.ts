@@ -1,16 +1,14 @@
-import { ReportListItem } from "@/types/report";
-
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 if (!API_BASE_URL) {
     throw new Error("NEXT_PUBLIC_API_BASE_URL is not defined.");
 }
 
-type ApiRequestOptions = {
-    token?: string;
+export type AuthOptions = {
+    token?: string | null;
 };
 
-export function buildAuthHeaders(token?: string): HeadersInit {
+export function buildAuthHeaders(token?: string | null): HeadersInit {
     if (!token) {
         return {};
     }
@@ -23,7 +21,7 @@ export function buildAuthHeaders(token?: string): HeadersInit {
 export async function apiFetch(
     path: string,
     options: RequestInit = {},
-    authOptions: ApiRequestOptions = {}
+    authOptions: AuthOptions = {}
 ): Promise<Response> {
     return fetch(`${API_BASE_URL}${path}`, {
         ...options,

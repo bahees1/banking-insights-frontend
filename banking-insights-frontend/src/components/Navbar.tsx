@@ -54,10 +54,9 @@ export default function Navbar() {
                             </span>
 
                             <UserButton
-                                afterSignOutUrl="/"
                                 appearance={{
                                     elements: {
-                                        avatarBox: "h-9 w-9",
+                                        avatarBox: "h-10 w-10",
                                     },
                                 }}
                             />
@@ -100,10 +99,9 @@ export default function Navbar() {
                             </Menu>
 
                             <UserButton
-                                afterSignOutUrl="/"
                                 appearance={{
                                     elements: {
-                                        avatarBox: "h-9 w-9",
+                                        avatarBox: "h-10 w-10",
                                     },
                                 }}
                             />

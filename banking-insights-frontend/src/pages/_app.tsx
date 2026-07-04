@@ -8,7 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      afterSignOutUrl="/"
+    >
       <main className={inter.className}>
         <Navbar />
         <Component {...pageProps} />

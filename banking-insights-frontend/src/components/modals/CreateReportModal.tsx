@@ -6,7 +6,7 @@ type CreateReportModalProps = {
     isOpen: boolean;
     onClose: () => void;
     onReportCreated: () => void;
-    token?: string;
+    getAuthToken: () => Promise<string | null>;
 };
 
 // file upload constraints for helper text on form
@@ -17,7 +17,7 @@ export default function CreateReportModal({
     isOpen,
     onClose,
     onReportCreated,
-    token,
+    getAuthToken,
 }: CreateReportModalProps) {
     const [reportName, setReportName] = useState<string>("");
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -28,6 +28,8 @@ export default function CreateReportModal({
         try {
             setIsUploading(true);
             setErrorMessage("");
+
+            const token = await getAuthToken();
 
             await uploadReport(reportName.trim(), selectedFiles, {
                 token,

@@ -91,6 +91,8 @@ export default function ReportDashboardPage() {
         }
     }
 
+    
+
     return (
         <main className="min-h-screen min-w-[320px]">
             <section className="mx-auto w-full max-w-7xl px-6 pt-35 sm:px-6 md:pt-32 lg:px-8 xl:px-10">
@@ -185,3 +187,4 @@ function formatReportDate(dateValue: string): string {
         day: "numeric",
     });
 }
+
