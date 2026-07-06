@@ -5,23 +5,7 @@ import { Transaction } from "@/types/transaction";
 import { Insight } from "@/types/insight";
 import { UploadReportResponse } from "@/types/uploadReport";
 
-export async function getCurrentUser(
-    authOptions: AuthOptions = {}
-): Promise<string> {
-    const response = await apiFetch(
-        "/api/auth/me",
-        {
-            method: "GET",
-        },
-        authOptions
-    );
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch current user.");
-    }
-
-    return response.text();
-}
 // this endpoint grabs all user reports for reports page
 export async function getReports(
     authOptions: AuthOptions = {}
