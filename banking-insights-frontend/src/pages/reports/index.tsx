@@ -122,7 +122,7 @@ export default function ReportsPage() {
                 )}
 
                 {!isLoading && !errorMessage && reports.length === 0 && (
-                    <div className="bg-white px-6 py-8">
+                    <div className="bg-white px-6 rounded-md py-8">
                         <p className="text-sm text-gray-700">
                             No reports yet. Create your first report to get started.
                         </p>

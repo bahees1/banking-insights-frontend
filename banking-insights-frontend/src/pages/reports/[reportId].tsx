@@ -63,7 +63,15 @@ export default function ReportDashboardPage() {
                 setTransactions(transactionsFromApi);
                 setInsights(insightsFromApi);
             } catch (error) {
-                setErrorMessage("Unable to load report data.");
+                if (error instanceof Error) {
+                    setErrorMessage(
+                        "This report could not be found or you do not have permission to view it."
+                    );
+                } else {
+                    setErrorMessage(
+                        "An unexpected error occurred while loading the report."
+                    );
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -110,7 +118,7 @@ export default function ReportDashboardPage() {
                 )}
 
                 {errorMessage && (
-                    <p className="text-sm text-red-600">
+                    <p className="text-center text-sm text-red-600">
                         {errorMessage}
                     </p>
                 )}

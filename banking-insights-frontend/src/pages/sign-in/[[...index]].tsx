@@ -6,6 +6,13 @@ export default function SignInPage() {
             <SignIn
                 fallbackRedirectUrl="/reports"
                 signUpUrl="/sign-up"
+                appearance={{
+                    elements: {
+                        card: "w-full max-w-md md:max-w-lg",
+                        formButtonPrimary: "bg-blue-500 hover:bg-blue-600",
+                    },
+                    
+                }}
             />
         </main>
     );

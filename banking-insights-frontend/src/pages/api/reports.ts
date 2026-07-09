@@ -1,4 +1,4 @@
-import { apiFetch, AuthOptions } from "@/lib/api";
+import { apiFetch, AuthOptions, ApiError } from "@/lib/api";
 import { ReportListItem } from "@/types/report";
 import { ReportSummary } from "@/types/reportSummary";
 import { Transaction } from "@/types/transaction";
@@ -89,7 +89,7 @@ export async function uploadReport(
     );
 
     if (!response.ok) {
-        throw new Error("Failed to upload report.");
+        throw new ApiError("Failed to upload report.", response.status);
     }
 
     return response.json();
@@ -109,7 +109,7 @@ export async function deleteReport(
     );
 
     if (!response.ok) {
-        throw new Error("Failed to delete report.");
+        throw new ApiError("Failed to delete report.", response.status);
     }
 }
 
@@ -152,7 +152,7 @@ export async function updateReportName(
     );
 
     if (!response.ok) {
-        throw new Error("Failed to update report name.");
+        throw new ApiError("Failed to update report name.", response.status);
     }
 
     return response.json();
