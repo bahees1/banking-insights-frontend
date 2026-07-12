@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import EditReportNameModal from "@/components/modals/EditReportNameModal";
 import { updateReportName } from "@/pages/api/reports";
+import { useDemoMode } from "@/hooks/useDemoMode";
+import DemoModeModal from "@/components/modals/DemoModeModal";
 
 
 export default function ReportDashboardPage() {
@@ -33,6 +35,10 @@ export default function ReportDashboardPage() {
 
     const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
     const [isSavingReportName, setIsSavingReportName] = useState<boolean>(false);
+
+    const { isDemoUser } = useDemoMode();
+
+    const [demoModeModalIsOpen, setDemoModeModalIsOpen] = useState<boolean>(false);
 
     const filteredTransactions =
         selectedFileName === "ALL"
@@ -134,7 +140,14 @@ export default function ReportDashboardPage() {
 
                                     <button
                                         type="button"
-                                        onClick={() => setEditModalIsOpen(true)}
+                                        onClick={() => {
+                                            if (isDemoUser) {
+                                                setDemoModeModalIsOpen(true);
+                                                return;
+                                            }
+
+                                            setEditModalIsOpen(true);
+                                        }}
                                         className=" text-gray-500 transition-colors  hover:bg-gray-100 hover:text-blue-500"
                                     >
                                         <FontAwesomeIcon icon={faPen} />
@@ -190,6 +203,10 @@ export default function ReportDashboardPage() {
                 isSaving={isSavingReportName}
                 onClose={() => setEditModalIsOpen(false)}
                 onSave={handleReportNameSave}
+            />
+            <DemoModeModal
+                isOpen={demoModeModalIsOpen}
+                onClose={() => setDemoModeModalIsOpen(false)}
             />
         </main>
     );

@@ -1,4 +1,6 @@
-import Link from "next/link";
+import { useState } from "react";
+import { useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 type DemoModeModalProps = {
     isOpen: boolean;
@@ -9,8 +11,25 @@ export default function DemoModeModal({
     isOpen,
     onClose,
 }: DemoModeModalProps) {
+    const { signOut } = useClerk();
+    const router = useRouter();
+
+    const [isLeavingDemo, setIsLeavingDemo] = useState<boolean>(false);
+
     if (!isOpen) {
         return null;
+    }
+
+    async function handleCreateAccount() {
+        try {
+            setIsLeavingDemo(true);
+
+            await signOut();
+
+            await router.push("/sign-up");
+        } finally {
+            setIsLeavingDemo(false);
+        }
     }
 
     return (
@@ -30,17 +49,22 @@ export default function DemoModeModal({
                     <button
                         type="button"
                         onClick={onClose}
-                        className="rounded-md bg-gray-100 px-4 py-2 text-sm text-black"
+                        disabled={isLeavingDemo}
+                        className="rounded-md bg-gray-100 px-4 py-2 text-sm text-black transition-colors hover:bg-gray-200 disabled:opacity-50"
                     >
                         Close
                     </button>
 
-                    <Link
-                        href="/sign-up"
-                        className="rounded-md bg-blue-500 px-4 py-2 text-sm text-white"
+                    <button
+                        type="button"
+                        onClick={handleCreateAccount}
+                        disabled={isLeavingDemo}
+                        className="rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-600 disabled:opacity-50"
                     >
-                        Create Account
-                    </Link>
+                        {isLeavingDemo
+                            ? "Leaving Demo..."
+                            : "Create Free Account"}
+                    </button>
                 </div>
             </div>
         </div>

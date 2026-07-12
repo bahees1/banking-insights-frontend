@@ -10,6 +10,8 @@ import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteReportModal from "@/components/modals/DeleteReportModal";
 import { deleteReport } from "../api/reports";
+import { useDemoMode } from "@/hooks/useDemoMode";
+import DemoModeModal from "@/components/modals/DemoModeModal";
 
 export default function ReportsPage() {
     const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
@@ -19,6 +21,8 @@ export default function ReportsPage() {
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const [selectedReportToDelete, setSelectedReportToDelete] = useState<{reportId: string;reportName: string;} | null>(null);
+    const { isDemoUser } = useDemoMode();
+    const [demoModeModalIsOpen, setDemoModeModalIsOpen] = useState<boolean>(false);
     const { getToken } = useAuth();
 
     const router = useRouter();
@@ -51,6 +55,11 @@ export default function ReportsPage() {
     }, []);
 
     function handleDeleteClick(reportId: string, reportName: string) {
+        if (isDemoUser) {
+            setDemoModeModalIsOpen(true);
+            return;
+        }
+
         setSelectedReportToDelete({
             reportId,
             reportName,
@@ -101,7 +110,14 @@ export default function ReportsPage() {
 
                     <button
                         type="button"
-                        onClick={() => setCreateModalIsOpen(true)}
+                        onClick={() => {
+                            if (isDemoUser) {
+                                setDemoModeModalIsOpen(true);
+                                return;
+                            }
+
+                            setCreateModalIsOpen(true);
+                        }}
                         className="flex items-center gap-2 rounded-md bg-blue-500 active:bg-blue-300 px-5 py-3 text-sm text-white"
                     >
                         <FontAwesomeIcon icon={faPlus} />
@@ -166,6 +182,10 @@ export default function ReportsPage() {
                     setSelectedReportToDelete(null);
                 }}
                 onConfirm={handleConfirmDeleteReport}
+            />
+            <DemoModeModal
+                isOpen={demoModeModalIsOpen}
+                onClose={() => setDemoModeModalIsOpen(false)}
             />
         </main>
     );
