@@ -59,11 +59,11 @@ export default function ComparisonSection() {
 
                 <div className="mt-14 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                     <div className="hidden grid-cols-2 border-b border-slate-200 bg-slate-50 md:grid">
-                        <div className="px-6 py-4 text-sm font-semibold text-slate-600">
+                        <div className="px-6 py-4 text-md font-semibold text-slate-600">
                             Typical bank dashboard
                         </div>
 
-                        <div className="border-l border-slate-200 px-6 py-4 text-sm font-semibold text-blue-600">
+                        <div className="border-l border-slate-200 px-6 py-4 text-md font-semibold text-blue-600">
                             Personal Spending Insights
                         </div>
                     </div>
