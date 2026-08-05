@@ -36,7 +36,7 @@ export default function HeroSection() {
 
                     <Link
                         href="/sign-up"
-                        className="inline-flex items-center justify-center rounded-xl border border-blue-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+                        className="inline-flex items-center justify-center rounded-xl shadow-sm bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100"
                     >
                         Create Account
                     </Link>

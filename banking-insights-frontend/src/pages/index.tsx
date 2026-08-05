@@ -1,3 +1,4 @@
+import ComparisonSection from "@/components/landing/ComparisonSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import HeroSection from "@/components/landing/HeroSection";
 
@@ -6,6 +7,7 @@ export default function Home() {
         <main className="min-h-screen ">
             <HeroSection />
             <FeaturesSection />
+            <ComparisonSection />
         </main>
     );
 }

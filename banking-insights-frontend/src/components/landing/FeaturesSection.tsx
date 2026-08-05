@@ -25,9 +25,9 @@ export default function FeaturesSection() {
             <div className="mx-auto max-w-7xl">
                 {/* Section heading */}
                 <div className="mx-auto max-w-3xl text-center">
-                    <p className="!text-sm font-semibold uppercase tracking-wider text-blue-600">
+                    <h6 className="font-semibold uppercase tracking-wider text-blue-600">
                         How it works
-                    </p>
+                    </h6>
 
                     <h4 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
                         Everything you need to understand your spending
