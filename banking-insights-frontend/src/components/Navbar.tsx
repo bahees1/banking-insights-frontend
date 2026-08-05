@@ -26,10 +26,6 @@ export default function Navbar() {
                             href="/"
                             className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
                         >
-                            <FontAwesomeIcon
-                                icon={faBolt}
-                                className="shrink-0"
-                            />
 
                             <span className="truncate">
                                 Personal Spending Insights

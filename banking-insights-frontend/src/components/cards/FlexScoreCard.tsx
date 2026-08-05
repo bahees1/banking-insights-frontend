@@ -31,14 +31,14 @@ export default function FlexScoreCard({
 
                 <div className="flex h-3 w-full overflow-hidden rounded-full bg-gray-100">
                     <div
-                        className="h-full bg-green-400"
+                        className="h-full bg-blue-400"
                         style={{
                             width: `${essentialsPercentage}%`,
                         }}
                     />
 
                     <div
-                        className="h-full bg-orange-400"
+                        className="h-full bg-purple-400"
                         style={{
                             width: `${discretionaryPercentage}%`,
                         }}
@@ -47,13 +47,13 @@ export default function FlexScoreCard({
 
                 <div className="flex flex-col gap-2">
                     <LegendItem
-                        colorClassName="bg-green-500"
+                        colorClassName="bg-blue-500"
                         label="Essentials"
                         amount={necessitiesAmount}
                     />
 
                     <LegendItem
-                        colorClassName="bg-orange-400"
+                        colorClassName="bg-purple-400"
                         label="Non-essentials"
                         amount={nonNecessitiesAmount}
                     />
