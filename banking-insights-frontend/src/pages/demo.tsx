@@ -16,7 +16,16 @@ export default function DemoPage() {
 
     // Step 1: create and consume the demo ticket
     useEffect(() => {
-        if (!signIn || user || hasAttemptedDemoSignIn.current) {
+        if (!signIn) {
+            return;
+        }
+
+        if (user) {
+            router.replace("/reports");
+            return;
+        }
+
+        if (hasAttemptedDemoSignIn.current) {
             return;
         }
 
@@ -78,7 +87,7 @@ export default function DemoPage() {
         }
 
         startDemoSession();
-    }, [signIn, user]);
+    }, [signIn, user, router]);
 
     // Step 2: wait for Clerk's sign-in state to become complete
     useEffect(() => {

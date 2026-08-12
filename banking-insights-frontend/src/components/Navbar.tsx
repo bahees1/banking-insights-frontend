@@ -22,15 +22,22 @@ export default function Navbar() {
             <nav className="fixed top-4 left-1/2 z-50 hidden w-[90%] max-w-7xl -translate-x-1/2 rounded-2xl bg-white px-6 py-2 shadow-md md:block">
                 <div className="flex min-w-0 items-center justify-between gap-4">
                     <div className="flex min-w-0 items-center gap-5">
-                        <Link
-                            href="/"
-                            className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
-                        >
-
-                            <span className="truncate">
-                                Personal Spending Insights
-                            </span>
-                        </Link>
+                       {user ? (
+                            <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600">
+                                <span className="truncate cursor-default">
+                                    Personal Spending Insights
+                                </span>
+                            </div>
+                        ) : (
+                            <Link
+                                href="/"
+                                className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
+                            >
+                                <span className="truncate">
+                                    Personal Spending Insights
+                                </span>
+                            </Link>
+                        )}
 
                         <Show when="signed-in">
                             <Link
@@ -105,19 +112,32 @@ export default function Navbar() {
             {/* Mobile Navbar */}
             <nav className="fixed top-4 left-1/2 z-50 block w-[90%] max-w-7xl -translate-x-1/2 rounded-2xl bg-white px-4 py-4 shadow-md md:hidden">
                 <div className="flex min-w-0 items-center justify-between gap-4">
-                    <Link
-                        href="/"
-                        className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
-                    >
-                        <FontAwesomeIcon
-                            icon={faBolt}
-                            className="shrink-0"
-                        />
+                    {user ? (
+                        <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600">
+                            <FontAwesomeIcon
+                                icon={faBolt}
+                                className="shrink-0"
+                            />
 
-                        <span className="truncate">
-                            Personal Spending Insights
-                        </span>
-                    </Link>
+                            <span className="truncate cursor-default">
+                                Personal Spending Insights
+                            </span>
+                        </div>
+                    ) : (
+                        <Link
+                            href="/"
+                            className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
+                        >
+                            <FontAwesomeIcon
+                                icon={faBolt}
+                                className="shrink-0"
+                            />
+
+                            <span className="truncate">
+                                Personal Spending Insights
+                            </span>
+                        </Link>
+                    )}
 
                     <div className="flex shrink-0 items-center gap-3">
                         <Show when="signed-in">
