@@ -44,65 +44,76 @@ export default function CategoryBreakdownWidget({
                     </p>
                 </div>
             ) : (
-                <div className="flex flex-col gap-4">
-                    <div className="h-[220px] min-h-[220px] min-w-0 w-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie
-                                    data={data}
-                                    dataKey="amount"
-                                    nameKey="category"
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={55}
-                                    outerRadius={90}
-                                    paddingAngle={2}
-                                >
-                                    {data.map((entry, index) => (
-                                        <Cell
-                                            key={entry.category}
-                                            fill={CHART_COLORS[index % CHART_COLORS.length]}
-                                        />
-                                    ))}
-                                </Pie>
-
-                                <Tooltip
-                                    formatter={(value) => formatCurrency(Number(value))}
-                                />
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </div>
-
-                    <div className="flex w-full flex-col gap-3">
-                        {data.map((item, index) => (
-                            <div
-                                key={item.category}
-                                className="flex items-center justify-between gap-4"
-                            >
-                                <div className="flex min-w-0 items-center gap-2">
-                                    <div
-                                        className="h-3 w-3 shrink-0 rounded-full"
-                                        style={{
-                                            backgroundColor: CHART_COLORS[index % CHART_COLORS.length],
-                                        }}
-                                    />
-
-                                    <p className="truncate text-sm text-gray-700">
-                                        {formatCategoryLabel(item.category)}
-                                    </p>
-                                </div>
-
-                                <p className="shrink-0 text-sm font-medium text-black">
-                                    {formatCurrency(item.amount)}
-                                </p>
-                            </div>
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
+        {/* Chart */}
+        <div className="h-[220px] min-h-[220px] min-w-0 w-full lg:h-[280px] lg:w-3/5">
+            <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                    <Pie
+                        data={data}
+                        dataKey="amount"
+                        nameKey="category"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={55}
+                        outerRadius={90}
+                        paddingAngle={2}
+                    >
+                        {data.map((entry, index) => (
+                            <Cell
+                                key={entry.category}
+                                fill={
+                                    CHART_COLORS[
+                                        index % CHART_COLORS.length
+                                    ]
+                                }
+                            />
                         ))}
-                    </div>
-                </div>
-            )}
+                    </Pie>
+
+                    <Tooltip
+                        formatter={(value) =>
+                            formatCurrency(Number(value))
+                        }
+                    />
+                </PieChart>
+            </ResponsiveContainer>
         </div>
-    );
-}
+
+        {/* Legend */}
+        <div className="flex w-full flex-col gap-4 lg:w-2/5 lg:border-l lg:border-gray-200 lg:pl-6">
+            {data.map((item, index) => (
+                <div
+                    key={item.category}
+                    className="flex items-center justify-between gap-4"
+                >
+                    <div className="flex min-w-0 items-center gap-3">
+                        <div
+                            className="h-3 w-3 shrink-0 rounded-full"
+                            style={{
+                                backgroundColor:
+                                    CHART_COLORS[
+                                        index % CHART_COLORS.length
+                                    ],
+                            }}
+                        />
+
+                        <p className="truncate text-sm text-gray-700">
+                            {formatCategoryLabel(item.category)}
+                        </p>
+                    </div>
+
+                    <p className="shrink-0 text-sm font-medium text-black">
+                        {formatCurrency(item.amount)}
+                    </p>
+                </div>
+            ))}
+        </div>
+    </div>
+                )}
+            </div>
+        );
+    }
 
 function formatCurrency(value: number): string {
     return new Intl.NumberFormat("en-CA", {
