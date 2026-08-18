@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+    faChevronRight,
+    faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 type ReportCardProps = {
     reportId: string;
@@ -21,36 +24,82 @@ export default function ReportCard({
     return (
         <div
             onClick={() => onClick(reportId)}
-            className="flex min-w-[340px] cursor-pointer flex-row gap-4 rounded-lg md:min-h-[110px] lg:min-h-[140px] shadow-sm bg-white px-6 py-4 transition-colors hover:bg-gray-50 justify-between"
+            className="
+                flex
+                w-full
+                cursor-pointer
+                flex-row
+                items-center
+                justify-between
+                gap-4
+                rounded-xl
+                border
+                border-gray-200
+                bg-white
+                px-4
+                py-5
+                shadow-sm
+                transition-all
+                hover:border-blue-200
+                hover:bg-blue-50/20
+                sm:px-6
+            "
         >
-            <div className="flex flex-col justify-between gap-6 md:items-start">
-                <p className="!font-semibold text-black">
+            {/* Report information */}
+            <div className="min-w-0 flex-1">
+                <p className="truncate font-semibold text-black">
                     {reportName}
                 </p>
-                <div className="flex flex-row gap-4">
-                    <p className="text-sm text-gray-500">
+
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                    <p className="text-gray-500">
                         {dateCreated}
                     </p>
-                    •
-                    <p className="text-sm text-blue-500">
-                        {fileCount} files
-                    </p>
 
+                    <span className="text-gray-300">
+                        •
+                    </span>
+
+                    <p className="font-medium text-blue-500">
+                        {fileCount} {fileCount === 1 ? "file" : "files"}
+                    </p>
                 </div>
-                
             </div>
 
-            <div className="flex items-center gap-6">
+            {/* Actions */}
+            <div className="flex shrink-0 items-center gap-2 sm:gap-4">
                 <button
                     type="button"
+                    aria-label={`Delete ${reportName}`}
                     onClick={(event) => {
                         event.stopPropagation();
                         onDeleteClick(reportId, reportName);
                     }}
-                    className="!text-md md:text-xl text-black transition-colors hover:text-red-600"
+                    className="
+                        flex
+                        h-9
+                        w-9
+                        items-center
+                        justify-center
+                        rounded-lg
+                        text-gray-500
+                        transition-colors
+                        hover:bg-red-50
+                        hover:text-red-600
+                    "
                 >
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon
+                        icon={faTrash}
+                        className="h-4 w-4"
+                    />
                 </button>
+
+                <div className="flex h-9 w-9 items-center justify-center text-gray-400">
+                    <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="h-4 w-4"
+                    />
+                </div>
             </div>
         </div>
     );

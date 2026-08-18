@@ -49,7 +49,10 @@ export default function MonthlyTrends({
 
             <div className="flex flex-col gap-4 lg:flex-row">
                 {!increasedMetadata && !decreasedMetadata && !newCategoryMetadata && (
-                    <InsightUnavailableCard message="Monthly trends are not available right now." />
+                    <InsightUnavailableCard
+                        message="Transactions were found for only one month. Add transactions from another month to view monthly trends."
+                    />
+
                 )}
 
                 {increasedMetadata && (
