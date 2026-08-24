@@ -116,7 +116,7 @@ export default function ReportDashboardPage() {
 
     return (
         <main className="min-h-screen min-w-[320px]">
-            <section className="mx-auto w-full max-w-7xl px-6 pt-35 sm:px-6 md:pt-32 lg:px-8 xl:px-10">
+            <section className="mx-auto w-full max-w-[1536px] px-4 pt-35 sm:px-6 md:px-5 md:pt-32 lg:px-6 xl:px-8">
                 {isLoading && (
                     <p className="text-sm text-gray-600">
                         Loading report...

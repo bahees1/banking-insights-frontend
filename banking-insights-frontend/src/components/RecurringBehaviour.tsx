@@ -85,39 +85,59 @@ export default function RecurringBehaviour({
                 Recurring Behaviour
             </h5>
 
-            <div className="flex flex-col gap-4 lg:flex-row">
-                {!repeatedSmallChargesMetadata
-                    && subscriptions.length === 0
-                    && !mostSpentMerchantMetadata && (
-                    <InsightUnavailableCard
-                        message="Recurring behaviour is not available right now."
-                    />
-                )}
+            {!repeatedSmallChargesMetadata
+                && subscriptions.length === 0
+                && !mostSpentMerchantMetadata && (
+                <InsightUnavailableCard
+                    message="Recurring behaviour is not available right now."
+                />
+            )}
 
-                {repeatedSmallChargesMetadata && (
-                    <RepeatedSmallChargesCard
-                        transactionCount={
-                            repeatedSmallChargesMetadata.transactionCount
+            {(repeatedSmallChargesMetadata
+                || subscriptions.length > 0
+                || mostSpentMerchantMetadata) && (
+                <div className="flex flex-col gap-4 md:flex-row">
+                    {/* Left side: subscriptions */}
+                    {subscriptions.length > 0 && (
+                        <div className="w-full md:flex md:w-1/2">
+                            <SubscriptionInsightCard
+                                subscriptions={subscriptions}
+                            />
+                        </div>
+                    )}
+
+                    {/* Right side: supporting recurring insights */}
+                    <div
+                        className={
+                            subscriptions.length > 0
+                                ? "flex w-full flex-col gap-4 md:w-1/2"
+                                : "flex w-full flex-col gap-4"
                         }
-                        totalAmount={
-                            repeatedSmallChargesMetadata.totalAmount
-                        }
-                    />
-                )}
+                    >
+                        {repeatedSmallChargesMetadata && (
+                            <RepeatedSmallChargesCard
+                                transactionCount={
+                                    repeatedSmallChargesMetadata.transactionCount
+                                }
+                                totalAmount={
+                                    repeatedSmallChargesMetadata.totalAmount
+                                }
+                            />
+                        )}
 
-                {subscriptions.length > 0 && (
-                    <SubscriptionInsightCard
-                        subscriptions={subscriptions}
-                    />
-                )}
-
-                {mostSpentMerchantMetadata && (
-                    <MostSpentMerchantCard
-                        merchant={mostSpentMerchantMetadata.merchant}
-                        totalAmount={mostSpentMerchantMetadata.totalAmount}
-                    />
-                )}
-            </div>
+                        {mostSpentMerchantMetadata && (
+                            <MostSpentMerchantCard
+                                merchant={
+                                    mostSpentMerchantMetadata.merchant
+                                }
+                                totalAmount={
+                                    mostSpentMerchantMetadata.totalAmount
+                                }
+                            />
+                        )}
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

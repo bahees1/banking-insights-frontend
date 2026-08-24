@@ -22,11 +22,11 @@ export default function SubscriptionInsightCard({
                         key={`${subscription.merchant}-${subscription.averageAmount}`}
                         className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0"
                     >
-                        <p className="min-w-0 truncate text-sm text-gray-600">
+                        <p className="min-w-0 truncate !text-md text-gray-600">
                             {formatMerchantName(subscription.merchant)}
                         </p>
 
-                        <p className="shrink-0 text-sm font-semibold text-black">
+                        <p className="shrink-0 !text-xl font-semibold text-black">
                             {formatCurrency(subscription.averageAmount)}
                         </p>
                     </div>

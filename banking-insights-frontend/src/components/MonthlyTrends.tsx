@@ -57,7 +57,9 @@ export default function MonthlyTrends({
 
                 {increasedMetadata && (
                     <TrendChangeCard
-                        title="Category with increase"
+                        title="Increased Spending"
+                        previousMonth={increasedMetadata.previousMonth}
+                        latestMonth={increasedMetadata.latestMonth}
                         categories={increasedMetadata.categories.slice(0, 3)}
                         trendType="increase"
                     />
@@ -65,7 +67,9 @@ export default function MonthlyTrends({
 
                 {decreasedMetadata && (
                     <TrendChangeCard
-                        title="Category with decrease"
+                        title="Decreased Spending"
+                        previousMonth={decreasedMetadata.previousMonth}
+                        latestMonth={decreasedMetadata.latestMonth}
                         categories={decreasedMetadata.categories.slice(0, 3)}
                         trendType="decrease"
                     />

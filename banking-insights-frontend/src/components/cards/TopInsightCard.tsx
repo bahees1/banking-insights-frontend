@@ -28,7 +28,7 @@ export default function TopInsightCard({
                     )}
                 </div>
 
-                <p className="!text-md text-end text-gray-600">
+                <p className="!text-md line-clamp-1 text-end text-gray-600">
                     {label}
                 </p>
             </div>

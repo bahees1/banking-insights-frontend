@@ -28,11 +28,11 @@ export default function NewCategoryCard({
                         key={item.category}
                         className="flex items-center justify-between gap-4"
                     >
-                        <p className="text-sm text-black">
+                        <p className="text-sm text-gray-600">
                             {formatCategory(item.category)}
                         </p>
 
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-black">
                             {formatMonth(month)}
                         </p>
                     </div>
