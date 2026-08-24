@@ -66,8 +66,8 @@ export default function RecurringBehaviour({
             subscriptionInsight?.metadataJson ?? null
         );
 
-    const topSubscription =
-        subscriptionMetadata?.subscriptions?.[0];
+    const subscriptions =
+        subscriptionMetadata?.subscriptions ?? [];
 
     const mostSpentMerchantInsight = findInsight(
         insights,
@@ -86,21 +86,28 @@ export default function RecurringBehaviour({
             </h5>
 
             <div className="flex flex-col gap-4 lg:flex-row">
-                {!repeatedSmallChargesMetadata && !topSubscription && !mostSpentMerchantMetadata && (
-                    <InsightUnavailableCard message="Recurring behaviour is not available right now." />
+                {!repeatedSmallChargesMetadata
+                    && subscriptions.length === 0
+                    && !mostSpentMerchantMetadata && (
+                    <InsightUnavailableCard
+                        message="Recurring behaviour is not available right now."
+                    />
                 )}
 
                 {repeatedSmallChargesMetadata && (
                     <RepeatedSmallChargesCard
-                        transactionCount={repeatedSmallChargesMetadata.transactionCount}
-                        totalAmount={repeatedSmallChargesMetadata.totalAmount}
+                        transactionCount={
+                            repeatedSmallChargesMetadata.transactionCount
+                        }
+                        totalAmount={
+                            repeatedSmallChargesMetadata.totalAmount
+                        }
                     />
                 )}
 
-                {topSubscription && (
+                {subscriptions.length > 0 && (
                     <SubscriptionInsightCard
-                        merchant={topSubscription.merchant}
-                        averageAmount={topSubscription.averageAmount}
+                        subscriptions={subscriptions}
                     />
                 )}
 
@@ -115,6 +122,9 @@ export default function RecurringBehaviour({
     );
 }
 
-function findInsight(insights: Insight[], type: string): Insight | undefined {
+function findInsight(
+    insights: Insight[],
+    type: string
+): Insight | undefined {
     return insights.find((insight) => insight.type === type);
 }
