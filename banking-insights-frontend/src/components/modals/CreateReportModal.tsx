@@ -25,6 +25,10 @@ export default function CreateReportModal({
     const [isUploading, setIsUploading] = useState<boolean>(false);
 
     async function handleCreateReport() {
+        if (selectedFiles.length > MAX_FILES) {
+            setErrorMessage("You can upload a maximum of 7 files.");
+            return;
+        }
         try {
             setIsUploading(true);
             setErrorMessage("");
@@ -100,9 +104,9 @@ export default function CreateReportModal({
         <div className="min-w-[340px] fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-6 py-8">
             <div className="flex rounded-2xl w-full max-w-3xl flex-col gap-8 bg-white px-8 py-8 md:px-12">
                 <div className="flex items-center justify-between">
-                    <h4 className="text-2xl font-medium text-black">
+                    <h5 className="text-2xl font-medium text-black">
                         Create Report
-                    </h4>
+                    </h5>
 
                     <button
                         type="button"
@@ -122,7 +126,7 @@ export default function CreateReportModal({
                     />
 
                     {reportNameIsInvalid && (
-                        <p className="text-sm text-red-600">
+                        <p className="text-red-600">
                             Report name must be at least 3 characters.
                         </p>
                     )}
@@ -191,7 +195,7 @@ export default function CreateReportModal({
                 )}
 
                 {errorMessage && (
-                    <p className="text-sm text-red-600">
+                    <p className=" text-red-600">
                         {errorMessage}
                     </p>
                 )}
@@ -200,7 +204,7 @@ export default function CreateReportModal({
                     <button
                         type="button"
                         onClick={handleCreateReport}
-                        disabled={reportName.trim().length < 3 || selectedFiles.length === 0 || isUploading}
+                        disabled={reportName.trim().length < 3 || selectedFiles.length === 0 || selectedFiles.length > MAX_FILES || isUploading}
                         className="bg-blue-500 px-6 py-4 rounded-md text-sm text-white disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         {isUploading ? "Generating..." : "Generate Report"}

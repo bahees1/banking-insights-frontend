@@ -53,10 +53,7 @@ export default function DemoPage() {
                 });
 
                 if (error) {
-                    console.error(
-                        "Clerk demo sign-in error:",
-                        JSON.stringify(error, null, 2)
-                    );
+                    
 
                     if (error.status === 429) {
                         throw new Error(
@@ -115,10 +112,6 @@ export default function DemoPage() {
                 const { error } = await signIn.finalize({
                     navigate: async ({ session, decorateUrl }) => {
                         if (session?.currentTask) {
-                            console.error(
-                                "Demo session requires another Clerk task:",
-                                session.currentTask
-                            );
 
                             throw new Error(
                                 "Demo session requires additional authentication."
@@ -139,11 +132,6 @@ export default function DemoPage() {
                 });
 
                 if (error) {
-                    console.error(
-                        "Clerk finalize error:",
-                        JSON.stringify(error, null, 2)
-                    );
-
                     throw new Error(
                         "Unable to activate the demo session."
                     );

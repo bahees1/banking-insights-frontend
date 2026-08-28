@@ -59,7 +59,7 @@ export default function ReportsPage() {
             setDemoModeModalIsOpen(true);
             return;
         }
-
+        
         setSelectedReportToDelete({
             reportId,
             reportName,
@@ -115,6 +115,7 @@ export default function ReportsPage() {
                                 setDemoModeModalIsOpen(true);
                                 return;
                             }
+                            
 
                             setCreateModalIsOpen(true);
                         }}

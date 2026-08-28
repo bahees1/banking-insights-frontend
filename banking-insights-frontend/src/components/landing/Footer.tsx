@@ -17,10 +17,7 @@ export default function Footer() {
                         href="/"
                         className="flex items-center gap-2 text-md font-semibold text-blue-600"
                     >
-                        <FontAwesomeIcon
-                            icon={faBolt}
-                            className="h-4 w-4"
-                        />
+
 
                         <span>Personal Spending Insights</span>
                     </Link>

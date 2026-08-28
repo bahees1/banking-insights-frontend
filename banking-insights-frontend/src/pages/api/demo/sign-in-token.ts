@@ -41,7 +41,7 @@ export default async function handler(
             token: signInToken.token,
         });
     } catch (error) {
-        console.error("Unable to create demo sign-in token:", error);
+        console.error("Unable to create demo sign-in token.");
 
         return response.status(500).json({
             message: "Unable to start demo session.",
