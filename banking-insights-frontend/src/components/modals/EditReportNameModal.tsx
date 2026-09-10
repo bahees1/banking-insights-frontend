@@ -42,7 +42,7 @@ export default function EditReportNameModal({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-6 py-8">
-            <div className="flex w-full max-w-md flex-col gap-6 rounded-2xl bg-white px-6 py-6 shadow-sm">
+            <div className="flex w-full max-w-md min-w-[320px] flex-col gap-6 rounded-2xl bg-white px-6 py-6 shadow-sm">
                 <div className="flex flex-col gap-2">
                     <h5 className="font-semibold text-black">
                         Edit Report Name
