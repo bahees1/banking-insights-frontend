@@ -1,20 +1,42 @@
-import {Menu,MenuButton,MenuItem,MenuItems} from "@headlessui/react";
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faBars, faBolt} from "@fortawesome/free-solid-svg-icons";
-import {Show, UserButton, useUser} from "@clerk/nextjs";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
+
+import {
+    Show,
+    UserButton,
+    useClerk,
+    useUser
+} from "@clerk/nextjs";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 import DemoUserMenu from "@/components/DemoUserMenu";
 import { useDemoMode } from "@/hooks/useDemoMode";
 
 export default function Navbar() {
     const router = useRouter();
+
+    const { signOut } = useClerk();
     const { user } = useUser();
+
     const { isDemoUser } = useDemoMode();
 
     const reportsIsActive =
         router.pathname === "/reports"
         || router.pathname === "/reports/[reportId]";
+
+    async function handleSiteNameClick() {
+        if (!isDemoUser) {
+            return;
+        }
+
+        await signOut();
+
+        await router.push("/");
+    }
 
     return (
         <>
@@ -22,12 +44,24 @@ export default function Navbar() {
             <nav className="fixed top-4 left-1/2 z-50 hidden w-[90%] max-w-7xl -translate-x-1/2 rounded-2xl bg-white px-6 py-2 shadow-md md:block">
                 <div className="flex min-w-0 items-center justify-between gap-4">
                     <div className="flex min-w-0 items-center gap-5">
-                       {user ? (
-                            <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600">
-                                <span className="truncate cursor-default">
-                                    Personal Spending Insights
-                                </span>
-                            </div>
+                        {user ? (
+                            isDemoUser ? (
+                                <button
+                                    type="button"
+                                    onClick={handleSiteNameClick}
+                                    className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
+                                >
+                                    <span className="truncate">
+                                        Personal Spending Insights
+                                    </span>
+                                </button>
+                            ) : (
+                                <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600">
+                                    <span className="truncate cursor-default">
+                                        Personal Spending Insights
+                                    </span>
+                                </div>
+                            )
                         ) : (
                             <Link
                                 href="/"
@@ -113,25 +147,33 @@ export default function Navbar() {
             <nav className="fixed top-4 left-1/2 z-50 block w-[90%] max-w-7xl -translate-x-1/2 rounded-2xl bg-white px-4 py-4 shadow-md md:hidden">
                 <div className="flex min-w-0 items-center justify-between gap-4">
                     {user ? (
-                        <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600">
-                            <FontAwesomeIcon
-                                icon={faBolt}
-                                className="shrink-0"
-                            />
+                        isDemoUser ? (
+                            <button
+                                type="button"
+                                onClick={handleSiteNameClick}
+                                className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
+                            >
+                                
 
-                            <span className="truncate cursor-default">
-                                Personal Spending Insights
-                            </span>
-                        </div>
+                                <span className="truncate">
+                                    Personal Spending Insights
+                                </span>
+                            </button>
+                        ) : (
+                            <div className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600">
+                                
+
+                                <span className="truncate cursor-default">
+                                    Personal Spending Insights
+                                </span>
+                            </div>
+                        )
                     ) : (
                         <Link
                             href="/"
                             className="flex min-w-0 items-center gap-2 text-sm font-medium text-blue-600"
                         >
-                            <FontAwesomeIcon
-                                icon={faBolt}
-                                className="shrink-0"
-                            />
+                            
 
                             <span className="truncate">
                                 Personal Spending Insights
@@ -141,7 +183,10 @@ export default function Navbar() {
 
                     <div className="flex shrink-0 items-center gap-3">
                         <Show when="signed-in">
-                            <Menu as="div" className="relative">
+                            <Menu
+                                as="div"
+                                className="relative"
+                            >
                                 <MenuButton className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100">
                                     <FontAwesomeIcon icon={faBars} />
                                 </MenuButton>
@@ -189,7 +234,10 @@ export default function Navbar() {
                         </Show>
 
                         <Show when="signed-out">
-                            <Menu as="div" className="relative">
+                            <Menu
+                                as="div"
+                                className="relative"
+                            >
                                 <MenuButton className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100">
                                     <FontAwesomeIcon icon={faBars} />
                                 </MenuButton>

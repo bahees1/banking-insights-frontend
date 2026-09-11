@@ -52,6 +52,8 @@ export default function ReportDashboardPage() {
             return;
         }
 
+        const resolvedReportId = reportId;
+
         async function loadReportData() {
             try {
                 setIsLoading(true);
@@ -60,9 +62,9 @@ export default function ReportDashboardPage() {
                 const token = await getToken();
 
                 const [summary, transactionsFromApi, insightsFromApi] = await Promise.all([
-                    getReportSummary(reportId, { token }),
-                    getTransactionsForReport(reportId, { token }),
-                    getInsightsForReport(reportId, { token }),
+                    getReportSummary(resolvedReportId, { token }),
+                    getTransactionsForReport(resolvedReportId, { token }),
+                    getInsightsForReport(resolvedReportId, { token }),
                 ]);
 
                 setReportSummary(summary);
