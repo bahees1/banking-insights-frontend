@@ -14,6 +14,21 @@ export default function DemoPage() {
     const [isStartingDemo, setIsStartingDemo] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
+    function hasHttpStatus(
+        error: unknown,
+        status: number
+    ): boolean {
+        if (
+            typeof error !== "object" ||
+            error === null ||
+            !("status" in error)
+        ) {
+            return false;
+        }
+
+        return (error as { status?: unknown }).status === status;
+    }
+
     // Step 1: create and consume the demo ticket
     useEffect(() => {
         if (!signIn) {
@@ -55,11 +70,11 @@ export default function DemoPage() {
                 if (error) {
                     
 
-                    if (error.status === 429) {
-                        throw new Error(
-                            "Demo sign-in is temporarily rate limited. Please wait a moment and try again."
-                        );
-                    }
+                    if (hasHttpStatus(error, 429)) {
+                    throw new Error(
+                        "Demo sign-in is temporarily rate limited. Please wait a moment and try again."
+                    );
+                }
 
                     throw new Error(
                         "Unable to sign in to the demo account."

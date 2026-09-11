@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@clerk/nextjs";
 
-import { getReportSummary, getTransactionsForReport, getInsightsForReport } from "@/pages/api/reports";
+import { getReportSummary, getTransactionsForReport, getInsightsForReport } from "@/services/reports";
 import { ReportSummary } from "@/types/reportSummary";
 import { Transaction } from "@/types/transaction";
 import FileSidebar from "@/components/FileSidebar";
@@ -14,7 +14,7 @@ import InsightDashboard from "@/components/InsightDashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import EditReportNameModal from "@/components/modals/EditReportNameModal";
-import { updateReportName } from "@/pages/api/reports";
+import { updateReportName } from "@/services/reports";
 import { useDemoMode } from "@/hooks/useDemoMode";
 import DemoModeModal from "@/components/modals/DemoModeModal";
 

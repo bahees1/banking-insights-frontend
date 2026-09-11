@@ -5,11 +5,11 @@ import { useAuth } from "@clerk/nextjs";
 
 import ReportCard from "@/components/ReportCard";
 import CreateReportModal from "@/components/modals/CreateReportModal";
-import { getReports } from "@/pages/api/reports";
+import { getReports } from "@/services/reports";
 import { ReportListItem } from "@/types/report";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import DeleteReportModal from "@/components/modals/DeleteReportModal";
-import { deleteReport } from "../api/reports";
+import { deleteReport } from "../../services/reports";
 import { useDemoMode } from "@/hooks/useDemoMode";
 import DemoModeModal from "@/components/modals/DemoModeModal";
 
