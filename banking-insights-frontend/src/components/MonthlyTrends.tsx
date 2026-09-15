@@ -56,6 +56,8 @@ export default function MonthlyTrends({
             newCategoryInsight?.metadataJson ?? null
         );
 
+   
+
     return (
         <section className="flex flex-col gap-4">
             <h5 className="font-medium text-black">
